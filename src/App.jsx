@@ -92,7 +92,7 @@ export default function App() {
           {/* Boutons CTA */}
           <div style={{ display: 'flex', gap: '20px' }}>
             <button
-              onClick={() => window.location.href = '/carte_unesco_france.html'}
+              onClick={() => window.location.href = './carte_unesco_france.html'}
               style={{
                 padding: '18px 40px',
                 background: 'white',
