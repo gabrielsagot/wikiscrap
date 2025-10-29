@@ -43,11 +43,11 @@ export default function App() {
             }}>
               <i className="fas fa-star" style={{ color: 'white', fontSize: '16px' }}></i>
             </div>
-            <span style={{ color: 'white', fontWeight: '600', fontSize: '20px', letterSpacing: '-0.01em' }}>Sagot Portfolio</span>
+            <span style={{ color: 'white', fontWeight: '600', fontSize: '20px', letterSpacing: '-0.01em' }}>WikiScrap UNESCO</span>
           </div>
           <div style={{ display: 'flex', gap: '40px' }}>
             <a href="#accueil" style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px', fontWeight: '500', textDecoration: 'none' }}>Accueil</a>
-            <a href="#documentation" style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px', fontWeight: '500', textDecoration: 'none' }}>Documentation</a>
+            <a href="#apropos" style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px', fontWeight: '500', textDecoration: 'none' }}>À propos</a>
           </div>
         </nav>
 
@@ -75,7 +75,7 @@ export default function App() {
               letterSpacing: '-0.03em',
               fontFamily: 'system-ui, -apple-system, sans-serif'
             }}>
-              Créez aujourd'hui
+              Sites UNESCO
             </div>
             <div style={{
               fontSize: '120px',
@@ -85,7 +85,7 @@ export default function App() {
               letterSpacing: '-0.03em',
               fontFamily: 'system-ui, -apple-system, sans-serif'
             }}>
-              l'expérience de demain
+              de France
             </div>
           </h1>
 
@@ -125,8 +125,8 @@ export default function App() {
               alignItems: 'center',
               gap: '14px'
             }}>
-              <i className="fas fa-book" style={{ fontSize: '18px' }}></i>
-              En savoir plus
+              <i className="fas fa-file-alt" style={{ fontSize: '18px' }}></i>
+              Rapport collectif
             </button>
           </div>
         </div>
