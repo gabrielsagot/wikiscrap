@@ -29,7 +29,7 @@ export default function App() {
           border: '1px solid rgba(255, 255, 255, 0.15)',
           display: 'flex',
           alignItems: 'center',
-          gap: '60px'
+          justifyContent: 'center'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <div style={{
@@ -44,10 +44,6 @@ export default function App() {
               <i className="fas fa-star" style={{ color: 'white', fontSize: '16px' }}></i>
             </div>
             <span style={{ color: 'white', fontWeight: '600', fontSize: '20px', letterSpacing: '-0.01em' }}>WikiScrap UNESCO</span>
-          </div>
-          <div style={{ display: 'flex', gap: '40px' }}>
-            <a href="#accueil" style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px', fontWeight: '500', textDecoration: 'none' }}>Accueil</a>
-            <a href="#apropos" style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px', fontWeight: '500', textDecoration: 'none' }}>À propos</a>
           </div>
         </nav>
 
@@ -64,10 +60,10 @@ export default function App() {
           <h1 style={{
             textAlign: 'center',
             marginBottom: '60px',
-            maxWidth: '1400px'
+            maxWidth: '1600px'
           }}>
             <div style={{
-              fontSize: '120px',
+              fontSize: '160px',
               fontWeight: '700',
               color: 'white',
               lineHeight: '1',
@@ -78,7 +74,7 @@ export default function App() {
               Sites UNESCO
             </div>
             <div style={{
-              fontSize: '120px',
+              fontSize: '160px',
               fontWeight: '700',
               color: 'white',
               lineHeight: '1',
