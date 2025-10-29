@@ -29,7 +29,19 @@ export default function App() {
           border: '1px solid rgba(255, 255, 255, 0.15)',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          transition: 'all 0.3s ease',
+          cursor: 'pointer'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+          e.currentTarget.style.transform = 'translateX(-50%) translateY(-2px)';
+          e.currentTarget.style.boxShadow = '0 10px 30px rgba(96, 165, 250, 0.3)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+          e.currentTarget.style.transform = 'translateX(-50%) translateY(0)';
+          e.currentTarget.style.boxShadow = 'none';
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <div style={{
@@ -39,7 +51,8 @@ export default function App() {
               background: 'linear-gradient(135deg, #60a5fa, #a78bfa)',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              transition: 'transform 0.3s ease'
             }}>
               <i className="fas fa-star" style={{ color: 'white', fontSize: '16px' }}></i>
             </div>
@@ -101,10 +114,22 @@ export default function App() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '14px',
-                boxShadow: '0 20px 50px rgba(255, 255, 255, 0.3)'
+                boxShadow: '0 20px 50px rgba(255, 255, 255, 0.3)',
+                transition: 'all 0.3s ease',
+                transform: 'translateY(0)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-5px) scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 30px 60px rgba(255, 255, 255, 0.5)';
+                e.currentTarget.style.background = '#f0f0f0';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.boxShadow = '0 20px 50px rgba(255, 255, 255, 0.3)';
+                e.currentTarget.style.background = 'white';
               }}>
-              Commencer
-              <i className="fas fa-arrow-right" style={{ fontSize: '18px' }}></i>
+              Consulter la carte
+              <i className="fas fa-map-marked-alt" style={{ fontSize: '18px' }}></i>
             </button>
 
             <button
@@ -121,7 +146,21 @@ export default function App() {
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '14px'
+                gap: '14px',
+                transition: 'all 0.3s ease',
+                transform: 'translateY(0)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-5px) scale(1.05)';
+                e.currentTarget.style.background = 'rgba(96, 165, 250, 0.25)';
+                e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.5)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(96, 165, 250, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.background = 'rgba(96, 165, 250, 0.15)';
+                e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.3)';
+                e.currentTarget.style.boxShadow = 'none';
               }}>
               <i className="fas fa-code" style={{ fontSize: '18px' }}></i>
               Consulter le code
@@ -139,7 +178,21 @@ export default function App() {
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '14px'
+              gap: '14px',
+              transition: 'all 0.3s ease',
+              transform: 'translateY(0)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px) scale(1.05)';
+              e.currentTarget.style.background = 'rgba(0, 0, 0, 0.5)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+              e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.6)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
+              e.currentTarget.style.background = 'rgba(0, 0, 0, 0.3)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+              e.currentTarget.style.boxShadow = 'none';
             }}>
               <i className="fas fa-file-alt" style={{ fontSize: '18px' }}></i>
               Rapport collectif
