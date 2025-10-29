@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Source - WikiScrap UNESCO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'system-ui', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(-5px);
+        }
+
+        .header h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Code Card */
+        .code-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .code-title i {
+            font-size: 24px;
+            color: #60a5fa;
+        }
+
+        .code-title h2 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .copy-button {
+            padding: 10px 20px;
+            background: rgba(96, 165, 250, 0.15);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 9999px;
+            color: #60a5fa;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background: rgba(96, 165, 250, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .copy-button.copied {
+            background: rgba(34, 197, 94, 0.15);
+            border-color: rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        /* Code Block */
+        .code-wrapper {
+            background: #1e1e1e;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        pre {
+            margin: 0;
+            padding: 0;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            display: block;
+            padding: 24px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #60a5fa;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .back-button {
+                top: 20px;
+                left: 20px;
+            }
+
+            .header h1 {
+                font-size: 36px;
+            }
+
+            .code-card {
+                padding: 20px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="./" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Retour
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <h1>Code Source</h1>
+            <p>Script Python de scraping et visualisation des sites UNESCO de France</p>
+        </div>
+
+        <div class="code-card">
+            <div class="code-header">
+                <div class="code-title">
+                    <i class="fab fa-python"></i>
+                    <h2>unescowik.py</h2>
+                </div>
+                <button class="copy-button" onclick="copyCode()">
+                    <i class="fas fa-copy"></i>
+                    <span id="copy-text">Copier</span>
+                </button>
+            </div>
+
+            <div class="code-wrapper">
+                <pre><code class="language-python" id="source-code">import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import matplotlib.pyplot as plt
+import folium
+import re
+
+# =====================================================================
+# SCRAPING
+# =====================================================================
+url = &quot;https://fr.wikipedia.org/wiki/Liste_du_patrimoine_mondial_en_France&quot;
+headers = {
+    &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&#x27;
+}
+
+print(&quot;=== SCRAPING DES SITES UNESCO FRANCE ===\n&quot;)
+response = requests.get(url, headers=headers)
+response.encoding = &#x27;utf-8&#x27;
+soup = BeautifulSoup(response.text, &#x27;html.parser&#x27;)
+
+sites = []
+regions = []
+types_sites = []
+annees = []
+coordonnees = []
+
+tableaux = soup.find_all(&#x27;table&#x27;, class_=&#x27;wikitable&#x27;)
+tableau = tableaux[1]  # 2ème tableau = liste des sites
+
+for ligne in tableau.find_all(&#x27;tr&#x27;)[1:]:
+    cellules = ligne.find_all(&#x27;td&#x27;)
+    
+    if len(cellules) &gt;= 6:
+        site = cellules[0].get_text(strip=True)
+        region = cellules[1].get_text(strip=True)
+        
+        # Extraction de l&#x27;année
+        annee_text = cellules[2].get_text(strip=True)
+        annee_match = re.findall(r&#x27;\d{4}&#x27;, annee_text)
+        annee = int(annee_match[0]) if annee_match else None
+        
+        # Extraction du type
+        type_text = cellules[4].get_text(strip=True)
+        if &#x27;Naturel&#x27; in type_text:
+            type_s = &#x27;Naturel&#x27;
+        elif &#x27;Mixte&#x27; in type_text:
+            type_s = &#x27;Mixte&#x27;
+        else:
+            type_s = &#x27;Culturel&#x27;
+        
+        # ===== AMÉLIORATION : Extraction des coordonnées =====
+        # On cherche d&#x27;abord dans le lien &lt;a&gt; de la cellule
+        coords_link = cellules[5].find(&#x27;a&#x27;, class_=&#x27;external text&#x27;)
+        if coords_link:
+            coords_text = coords_link.get_text(strip=True)
+        else:
+            # Sinon on prend le texte brut
+            coords_text = cellules[5].get_text(strip=True)
+        
+        sites.append(site)
+        regions.append(region)
+        types_sites.append(type_s)
+        annees.append(annee)
+        coordonnees.append(coords_text)
+
+df = pd.DataFrame({
+    &#x27;Site&#x27;: sites,
+    &#x27;Region&#x27;: regions,
+    &#x27;Type&#x27;: types_sites,
+    &#x27;Annee&#x27;: annees,
+    &#x27;Coordonnees&#x27;: coordonnees
+})
+
+print(f&quot;✓ {len(df)} sites UNESCO récupérés\n&quot;)
+
+# =====================================================================
+# AMÉLIORATION : Fonction de conversion DMS vers DD plus robuste
+# =====================================================================
+def dms2dd(degrees, minutes, seconds, direction):
+    &quot;&quot;&quot;Convertit DMS en degrés décimaux&quot;&quot;&quot;
+    dd = float(degrees) + float(minutes)/60 + float(seconds)/(60*60)
+    if direction in (&#x27;S&#x27;, &#x27;O&#x27;, &#x27;W&#x27;, &#x27;sud&#x27;, &#x27;ouest&#x27;):
+        dd *= -1
+    return dd
+
+def parse_coordinates(coord_string):
+    &quot;&quot;&quot;
+    Parse les coordonnées depuis différents formats possibles
+    Retourne (latitude, longitude) ou (None, None) si échec
+    &quot;&quot;&quot;
+    if not coord_string or coord_string.strip() == &#x27;&#x27;:
+        return None, None
+    
+    try:
+        # Format standard : &quot;48° 51′ 29″ N, 2° 17′ 40″ E&quot;
+        if &#x27;,&#x27; in coord_string:
+            parts = coord_string.split(&#x27;,&#x27;)
+            if len(parts) == 2:
+                lat_part = parts[0].strip()
+                lon_part = parts[1].strip()
+                
+                # Extraction des chiffres et direction pour latitude
+                lat_match = re.findall(r&#x27;(\d+)[°\s]+(\d+)[′\&#x27;\s]+(\d+)[″&quot;\s]+([NSEO]|nord|sud|est|ouest)&#x27;, lat_part, re.IGNORECASE)
+                if lat_match:
+                    lat_deg, lat_min, lat_sec, lat_dir = lat_match[0]
+                    lat = dms2dd(lat_deg, lat_min, lat_sec, lat_dir)
+                else:
+                    # Essayer format décimal direct
+                    lat_decimal = re.findall(r&#x27;([-]?\d+\.?\d*)&#x27;, lat_part)
+                    if lat_decimal:
+                        lat = float(lat_decimal[0])
+                    else:
+                        return None, None
+                
+                # Extraction des chiffres et direction pour longitude
+                lon_match = re.findall(r&#x27;(\d+)[°\s]+(\d+)[′\&#x27;\s]+(\d+)[″&quot;\s]+([NSEO]|nord|sud|est|ouest)&#x27;, lon_part, re.IGNORECASE)
+                if lon_match:
+                    lon_deg, lon_min, lon_sec, lon_dir = lon_match[0]
+                    lon = dms2dd(lon_deg, lon_min, lon_sec, lon_dir)
+                else:
+                    # Essayer format décimal direct
+                    lon_decimal = re.findall(r&#x27;([-]?\d+\.?\d*)&#x27;, lon_part)
+                    if lon_decimal:
+                        lon = float(lon_decimal[0])
+                    else:
+                        return None, None
+                
+                return lat, lon
+        
+        # Si pas de virgule, peut-être format &quot;lat lon&quot; décimal
+        decimals = re.findall(r&#x27;([-]?\d+\.?\d+)&#x27;, coord_string)
+        if len(decimals) &gt;= 2:
+            return float(decimals[0]), float(decimals[1])
+        
+    except Exception as e:
+        print(f&quot;⚠️  Erreur parsing: {coord_string[:50]}... -&gt; {e}&quot;)
+        return None, None
+    
+    return None, None
+
+# =====================================================================
+# CONVERSION DES COORDONNÉES
+# =====================================================================
+print(&quot;Conversion des coordonnées...\n&quot;)
+
+latitudes = []
+longitudes = []
+
+for i, coord in enumerate(df[&#x27;Coordonnees&#x27;]):
+    lat, lon = parse_coordinates(coord)
+    latitudes.append(lat)
+    longitudes.append(lon)
+
+df[&#x27;Latitude&#x27;] = latitudes
+df[&#x27;Longitude&#x27;] = longitudes
+
+
+# === FIX POUR LE SITE SANS COORDONNÉES ===
+# Site des mémoriaux WW1 = bien en série, on utilise Notre-Dame-de-Lorette comme point représentatif
+df.loc[df[&#x27;Latitude&#x27;].isna(), &#x27;Latitude&#x27;] = 50.40
+df.loc[df[&#x27;Longitude&#x27;].isna(), &#x27;Longitude&#x27;] = 2.71
+
+
+# =====================================================================
+# STATISTIQUES
+# =====================================================================
+df_map = df.dropna(subset=[&#x27;Latitude&#x27;, &#x27;Longitude&#x27;])
+df_sans_coords = df[df[&#x27;Latitude&#x27;].isna()]
+
+print(f&quot;✓ {len(df_map)} sites AVEC coordonnées&quot;)
+print(f&quot;✗ {len(df_sans_coords)} sites SANS coordonnées\n&quot;)
+
+# =====================================================================
+# DEBUG : Afficher les sites problématiques
+# =====================================================================
+if len(df_sans_coords) &gt; 0:
+    print(f&quot;{&#x27;=&#x27;*70}&quot;)
+    print(f&quot;SITES SANS COORDONNÉES (à investiguer)&quot;)
+    print(f&quot;{&#x27;=&#x27;*70}\n&quot;)
+    for i, row in df_sans_coords.iterrows():
+        print(f&quot;🔴 {row[&#x27;Site&#x27;]}&quot;)
+        print(f&quot;   Région: {row[&#x27;Region&#x27;]}&quot;)
+        print(f&quot;   Coords brutes: &#x27;{row[&#x27;Coordonnees&#x27;][:80]}...&#x27;&quot;)
+        print()
+
+# =====================================================================
+# GRAPHIQUES
+# =====================================================================
+print(&quot;Génération des graphiques...\n&quot;)
+
+# Graphique 1 : Top 10 régions
+plt.figure(figsize=(12, 8))
+df[&#x27;Region&#x27;].value_counts().head(10).sort_values().plot(kind=&#x27;barh&#x27;, color=&#x27;#2E86AB&#x27;)
+plt.title(&#x27;Top 10 régions - Sites UNESCO&#x27;, fontsize=15, fontweight=&#x27;bold&#x27;)
+plt.xlabel(&#x27;Nombre de sites&#x27;)
+plt.tight_layout()
+plt.show()
+
+# Graphique 2 : Inscriptions par décennie
+plt.figure(figsize=(12, 6))
+df_clean = df.dropna(subset=[&#x27;Annee&#x27;]).copy()
+df_clean[&#x27;Decennie&#x27;] = (df_clean[&#x27;Annee&#x27;] // 10 * 10).astype(int)
+df_clean[&#x27;Decennie&#x27;].value_counts().sort_index().plot(kind=&#x27;bar&#x27;, color=&#x27;#A23B72&#x27;)
+plt.title(&#x27;Inscriptions par décennie&#x27;, fontsize=15, fontweight=&#x27;bold&#x27;)
+plt.xlabel(&#x27;Décennie&#x27;)
+plt.ylabel(&#x27;Nombre&#x27;)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+# Graphique 3 : Types de sites
+plt.figure(figsize=(9, 6))
+df[&#x27;Type&#x27;].value_counts().plot(kind=&#x27;bar&#x27;, color=[&#x27;#F18F01&#x27;, &#x27;#006466&#x27;, &#x27;#C73E1D&#x27;])
+plt.title(&#x27;Types de sites UNESCO&#x27;, fontsize=15, fontweight=&#x27;bold&#x27;)
+plt.xlabel(&#x27;Type&#x27;)
+plt.ylabel(&#x27;Nombre&#x27;)
+plt.xticks(rotation=0)
+plt.tight_layout()
+plt.show()
+
+
+# =====================================================================
+# CARTE INTERACTIVE MODERNE
+# =====================================================================
+print(&quot;\nCréation de la carte interactive...&quot;)
+
+from folium import plugins
+
+# Carte moderne avec style CartoDB Positron
+carte = folium.Map(
+    location=[46.6, 2.5], 
+    zoom_start=6,
+    tiles=&#x27;CartoDB positron&#x27;,
+    control_scale=True
+)
+
+# Configuration des couleurs et icônes par type
+type_config = {
+    &#x27;Culturel&#x27;: {&#x27;color&#x27;: &#x27;#3498db&#x27;, &#x27;icon&#x27;: &#x27;fa-landmark&#x27;},
+    &#x27;Naturel&#x27;: {&#x27;color&#x27;: &#x27;#27ae60&#x27;, &#x27;icon&#x27;: &#x27;fa-tree&#x27;},
+    &#x27;Mixte&#x27;: {&#x27;color&#x27;: &#x27;#e67e22&#x27;, &#x27;icon&#x27;: &#x27;fa-mountain-sun&#x27;}
+}
+
+# Vérification et ajout des marqueurs
+for _, row in df_map.iterrows():
+    lat, lon = row[&#x27;Latitude&#x27;], row[&#x27;Longitude&#x27;]
+    
+    # FILTRE : Garder uniquement les points en France métropolitaine et DOM-TOM
+    # France métropolitaine : 41°-51° N, -5°-10° E
+    # + DOM-TOM : latitude entre -25° et 50°, longitude entre -65° et 60°
+    if not ((41 &lt;= lat &lt;= 51 and -5 &lt;= lon &lt;= 10) or  # Métropole
+            (-25 &lt;= lat &lt;= -20 and 55 &lt;= lon &lt;= 60) or  # Réunion
+            (14 &lt;= lat &lt;= 18 and -63 &lt;= lon &lt;= -60) or  # Guadeloupe/Martinique
+            (-23 &lt;= lat &lt;= -21 and 164 &lt;= lon &lt;= 168) or  # Nouvelle-Calédonie
+            (-18 &lt;= lat &lt;= -8 and -141 &lt;= lon &lt;= -138) or  # Polynésie française
+            (-50 &lt;= lat &lt;= -37 and 50 &lt;= lon &lt;= 78)):  # TAAF
+        print(f&quot;⚠️  Coordonnées hors France ignorées : {row[&#x27;Site&#x27;]} ({lat}, {lon})&quot;)
+        continue
+    
+    config = type_config.get(row[&#x27;Type&#x27;], {&#x27;color&#x27;: &#x27;#95a5a6&#x27;, &#x27;icon&#x27;: &#x27;fa-map-marker&#x27;})
+    
+    # Popup HTML stylé
+    popup_html = f&quot;&quot;&quot;
+    &lt;div style=&quot;font-family: &#x27;Segoe UI&#x27;, Tahoma, sans-serif; width: 250px;&quot;&gt;
+        &lt;h4 style=&quot;color: {config[&#x27;color&#x27;]}; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid {config[&#x27;color&#x27;]}; padding-bottom: 5px;&quot;&gt;
+            &lt;i class=&quot;fa {config[&#x27;icon&#x27;]}&quot; style=&quot;margin-right: 8px;&quot;&gt;&lt;/i&gt;{row[&#x27;Site&#x27;]}
+        &lt;/h4&gt;
+        &lt;p style=&quot;margin: 5px 0; color: #555; font-size: 13px;&quot;&gt;
+            &lt;i class=&quot;fa fa-map-pin&quot; style=&quot;color: {config[&#x27;color&#x27;]}; margin-right: 5px;&quot;&gt;&lt;/i&gt;
+            &lt;strong&gt;Région:&lt;/strong&gt; {row[&#x27;Region&#x27;]}
+        &lt;/p&gt;
+        &lt;p style=&quot;margin: 5px 0; color: #555; font-size: 13px;&quot;&gt;
+            &lt;i class=&quot;fa fa-tag&quot; style=&quot;color: {config[&#x27;color&#x27;]}; margin-right: 5px;&quot;&gt;&lt;/i&gt;
+            &lt;strong&gt;Type:&lt;/strong&gt; {row[&#x27;Type&#x27;]}
+        &lt;/p&gt;
+        &lt;p style=&quot;margin: 5px 0; color: #555; font-size: 13px;&quot;&gt;
+            &lt;i class=&quot;fa fa-calendar&quot; style=&quot;color: {config[&#x27;color&#x27;]}; margin-right: 5px;&quot;&gt;&lt;/i&gt;
+            &lt;strong&gt;Inscrit en:&lt;/strong&gt; {row[&#x27;Annee&#x27;]}
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &quot;&quot;&quot;
+    
+    # Création du marqueur avec icône Font Awesome
+    folium.Marker(
+        location=[lat, lon],
+        popup=folium.Popup(popup_html, max_width=300),
+        tooltip=f&quot;&lt;b&gt;{row[&#x27;Site&#x27;]}&lt;/b&gt;&quot;,
+        icon=folium.Icon(
+            color=&#x27;white&#x27;,
+            icon_color=config[&#x27;color&#x27;],
+            icon=config[&#x27;icon&#x27;],
+            prefix=&#x27;fa&#x27;
+        )
+    ).add_to(carte)
+
+# Ajout d&#x27;une légende HTML (déplacée en haut à droite)
+legend_html = f&quot;&quot;&quot;
+&lt;div style=&quot;position: fixed; 
+            top: 10px; right: 10px; 
+            width: 200px; 
+            background-color: white; 
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: &#x27;Segoe UI&#x27;, Tahoma, sans-serif;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 9999;&quot;&gt;
+    &lt;h4 style=&quot;margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 8px;&quot;&gt;
+        &lt;i class=&quot;fa fa-layer-group&quot; style=&quot;margin-right: 8px;&quot;&gt;&lt;/i&gt;Légende
+    &lt;/h4&gt;
+    &lt;div style=&quot;margin: 8px 0;&quot;&gt;
+        &lt;i class=&quot;fa fa-landmark&quot; style=&quot;color: #3498db; margin-right: 8px;&quot;&gt;&lt;/i&gt;
+        &lt;span style=&quot;color: #555;&quot;&gt;Culturel ({len(df[df[&#x27;Type&#x27;]==&#x27;Culturel&#x27;])})&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div style=&quot;margin: 8px 0;&quot;&gt;
+        &lt;i class=&quot;fa fa-tree&quot; style=&quot;color: #27ae60; margin-right: 8px;&quot;&gt;&lt;/i&gt;
+        &lt;span style=&quot;color: #555;&quot;&gt;Naturel ({len(df[df[&#x27;Type&#x27;]==&#x27;Naturel&#x27;])})&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div style=&quot;margin: 8px 0;&quot;&gt;
+        &lt;i class=&quot;fa fa-mountain-sun&quot; style=&quot;color: #e67e22; margin-right: 8px;&quot;&gt;&lt;/i&gt;
+        &lt;span style=&quot;color: #555;&quot;&gt;Mixte ({len(df[df[&#x27;Type&#x27;]==&#x27;Mixte&#x27;])})&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;hr style=&quot;border: none; border-top: 1px solid #ddd; margin: 12px 0;&quot;&gt;
+    &lt;div style=&quot;text-align: center; color: #7f8c8d; font-size: 12px;&quot;&gt;
+        &lt;strong&gt;Total: {len(df_map)} sites&lt;/strong&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&quot;&quot;&quot;
+carte.get_root().html.add_child(folium.Element(legend_html))
+
+# Ajout d&#x27;un bouton plein écran
+plugins.Fullscreen(
+    position=&#x27;topleft&#x27;,
+    title=&#x27;Plein écran&#x27;,
+    title_cancel=&#x27;Quitter&#x27;,
+    force_separate_button=True
+).add_to(carte)
+
+# Ajout d&#x27;une mini-carte de navigation
+plugins.MiniMap(toggle_display=True).add_to(carte)
+
+# Sauvegarder et ouvrir
+carte.save(&#x27;carte_unesco_france.html&#x27;)
+print(&quot;✓ Carte sauvegardée : carte_unesco_france.html&quot;)
+
+import webbrowser
+import os
+webbrowser.open(&#x27;file://&#x27; + os.path.realpath(&#x27;carte_unesco_france.html&#x27;))</code></pre>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">349</div>
+                    <div class="stat-label">Lignes</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Bibliothèques</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Sections</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Syntax highlighting
+        hljs.highlightAll();
+
+        // Copy code function
+        function copyCode() {
+            const code = document.getElementById('source-code').textContent;
+            const button = document.querySelector('.copy-button');
+            const text = document.getElementById('copy-text');
+
+            navigator.clipboard.writeText(code).then(() => {
+                button.classList.add('copied');
+                text.textContent = 'Copié !';
+
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    text.textContent = 'Copier';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

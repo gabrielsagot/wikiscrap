@@ -86,7 +86,7 @@ export default function App() {
           </h1>
 
           {/* Boutons CTA */}
-          <div style={{ display: 'flex', gap: '20px' }}>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
             <button
               onClick={() => window.location.href = './carte_unesco_france.html'}
               style={{
@@ -105,6 +105,26 @@ export default function App() {
               }}>
               Commencer
               <i className="fas fa-arrow-right" style={{ fontSize: '18px' }}></i>
+            </button>
+
+            <button
+              onClick={() => window.location.href = './code.html'}
+              style={{
+                padding: '18px 40px',
+                background: 'rgba(96, 165, 250, 0.15)',
+                backdropFilter: 'blur(10px)',
+                color: '#60a5fa',
+                borderRadius: '9999px',
+                fontWeight: '600',
+                fontSize: '20px',
+                border: '1px solid rgba(96, 165, 250, 0.3)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '14px'
+              }}>
+              <i className="fas fa-code" style={{ fontSize: '18px' }}></i>
+              Consulter le code
             </button>
 
             <button style={{
