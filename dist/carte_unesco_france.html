@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_3da74bee03a66c1c8bce178a3ede74db {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+</head>
+<body>
+    
+    
+<div style="position: fixed; 
+            top: 10px; right: 10px; 
+            width: 200px; 
+            background-color: white; 
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 9999;">
+    <h4 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 8px;">
+        <i class="fa fa-layer-group" style="margin-right: 8px;"></i>Légende
+    </h4>
+    <div style="margin: 8px 0;">
+        <i class="fa fa-landmark" style="color: #3498db; margin-right: 8px;"></i>
+        <span style="color: #555;">Culturel (45)</span>
+    </div>
+    <div style="margin: 8px 0;">
+        <i class="fa fa-tree" style="color: #27ae60; margin-right: 8px;"></i>
+        <span style="color: #555;">Naturel (7)</span>
+    </div>
+    <div style="margin: 8px 0;">
+        <i class="fa fa-mountain-sun" style="color: #e67e22; margin-right: 8px;"></i>
+        <span style="color: #555;">Mixte (2)</span>
+    </div>
+    <hr style="border: none; border-top: 1px solid #ddd; margin: 12px 0;">
+    <div style="text-align: center; color: #7f8c8d; font-size: 12px;">
+        <strong>Total: 54 sites</strong>
+    </div>
+</div>
+    
+            <div class="folium-map" id="map_3da74bee03a66c1c8bce178a3ede74db" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_3da74bee03a66c1c8bce178a3ede74db = L.map(
+                "map_3da74bee03a66c1c8bce178a3ede74db",
+                {
+                    center: [46.6, 2.5],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+
+            
+
+        
+    
+            var tile_layer_df0e810387f3b0734cfa3ddd18a7d78c = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_df0e810387f3b0734cfa3ddd18a7d78c.addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var marker_b0f424bc770fefa702c9d2543f3d8136 = L.marker(
+                [46.56472222222222, 0.866111111111111],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_5bb7cfe20f240325900d83dc3fe162b6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_faf530fb167d13044e5bdc21f3f682d8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9725d7546cee7c7e614f1bda700d08e1 = $(`<div id="html_9725d7546cee7c7e614f1bda700d08e1" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Abbatiale de Saint-Savin sur Gartempe         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Nouvelle-Aquitaine         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1983         </p>     </div>     </div>`)[0];
+                popup_faf530fb167d13044e5bdc21f3f682d8.setContent(html_9725d7546cee7c7e614f1bda700d08e1);
+            
+        
+
+        marker_b0f424bc770fefa702c9d2543f3d8136.bindPopup(popup_faf530fb167d13044e5bdc21f3f682d8)
+        ;
+
+        
+    
+    
+            marker_b0f424bc770fefa702c9d2543f3d8136.bindTooltip(
+                `<div>
+                     <b>Abbatiale de Saint-Savin sur Gartempe</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b0f424bc770fefa702c9d2543f3d8136.setIcon(icon_5bb7cfe20f240325900d83dc3fe162b6);
+            
+    
+            var marker_cf0a00a21f5ca8b0cefd70b4789d4951 = L.marker(
+                [47.63944444444444, 4.389166666666667],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_1353d584d436caf32b7a89f74b14628b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d9538796493dd5dd62ceaacabad61ac9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d706ad93af9a3f5f32ad700d9a12c4a9 = $(`<div id="html_d706ad93af9a3f5f32ad700d9a12c4a9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Abbaye cistercienne de Fontenay         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Bourgogne-Franche-Comté         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1981         </p>     </div>     </div>`)[0];
+                popup_d9538796493dd5dd62ceaacabad61ac9.setContent(html_d706ad93af9a3f5f32ad700d9a12c4a9);
+            
+        
+
+        marker_cf0a00a21f5ca8b0cefd70b4789d4951.bindPopup(popup_d9538796493dd5dd62ceaacabad61ac9)
+        ;
+
+        
+    
+    
+            marker_cf0a00a21f5ca8b0cefd70b4789d4951.bindTooltip(
+                `<div>
+                     <b>Abbaye cistercienne de Fontenay</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cf0a00a21f5ca8b0cefd70b4789d4951.setIcon(icon_1353d584d436caf32b7a89f74b14628b);
+            
+    
+            var marker_56615b042ece723bb077d88dd1cc2649 = L.marker(
+                [43.677499999999995, 4.630833333333334],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_1b9728bb305c1c6056daf7ceea292402 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2bafe41458aa87652fef2082c8b4c8da = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c2a77d649f8eb8d0713bce9388ff43a5 = $(`<div id="html_c2a77d649f8eb8d0713bce9388ff43a5" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Arles, monuments romains et romans         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Provence-Alpes-Côte d'Azur         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1981         </p>     </div>     </div>`)[0];
+                popup_2bafe41458aa87652fef2082c8b4c8da.setContent(html_c2a77d649f8eb8d0713bce9388ff43a5);
+            
+        
+
+        marker_56615b042ece723bb077d88dd1cc2649.bindPopup(popup_2bafe41458aa87652fef2082c8b4c8da)
+        ;
+
+        
+    
+    
+            marker_56615b042ece723bb077d88dd1cc2649.bindTooltip(
+                `<div>
+                     <b>Arles, monuments romains et romans</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_56615b042ece723bb077d88dd1cc2649.setIcon(icon_1b9728bb305c1c6056daf7ceea292402);
+            
+    
+            var marker_e3a5aee381e2ca69f96cb1f8c0b0ce10 = L.marker(
+                [47.46638888888889, 3.7483333333333335],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_b033a1b5a1ebbea9d2ee54ec86cd7cdf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fb626c9e848150b29ab51a9d875276ae = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_97563be5d12a885bc1fba15a1fc5bac7 = $(`<div id="html_97563be5d12a885bc1fba15a1fc5bac7" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Basiliqueet colline deVézelay         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Bourgogne-Franche-Comté         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1979         </p>     </div>     </div>`)[0];
+                popup_fb626c9e848150b29ab51a9d875276ae.setContent(html_97563be5d12a885bc1fba15a1fc5bac7);
+            
+        
+
+        marker_e3a5aee381e2ca69f96cb1f8c0b0ce10.bindPopup(popup_fb626c9e848150b29ab51a9d875276ae)
+        ;
+
+        
+    
+    
+            marker_e3a5aee381e2ca69f96cb1f8c0b0ce10.bindTooltip(
+                `<div>
+                     <b>Basiliqueet colline deVézelay</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e3a5aee381e2ca69f96cb1f8c0b0ce10.setIcon(icon_b033a1b5a1ebbea9d2ee54ec86cd7cdf);
+            
+    
+            var marker_686948f123618d1ca14de706b2383344 = L.marker(
+                [50.462500000000006, 3.546111111111111],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_56b57f8da0f29407afc3418bc0e8a7a0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_87de208ab43f4d893daa700913fffe7f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ebe152768cb94bfe8746f024b068e820 = $(`<div id="html_ebe152768cb94bfe8746f024b068e820" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Bassin minier du Nord-Pas-de-Calais         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Hauts-de-France         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2012         </p>     </div>     </div>`)[0];
+                popup_87de208ab43f4d893daa700913fffe7f.setContent(html_ebe152768cb94bfe8746f024b068e820);
+            
+        
+
+        marker_686948f123618d1ca14de706b2383344.bindPopup(popup_87de208ab43f4d893daa700913fffe7f)
+        ;
+
+        
+    
+    
+            marker_686948f123618d1ca14de706b2383344.bindTooltip(
+                `<div>
+                     <b>Bassin minier du Nord-Pas-de-Calais</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_686948f123618d1ca14de706b2383344.setIcon(icon_56b57f8da0f29407afc3418bc0e8a7a0);
+            
+    
+            var marker_f00516c142e1e03455c8fd9987a4ef0d = L.marker(
+                [50.17444444444444, 3.231388888888889],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_af6ccecd4ae75b9fd65e2c203c7878ed = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cdc0a4cd7252c2241369a803d8ffe302 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f8ac4eda6d3b98289cadd8c40fb90433 = $(`<div id="html_f8ac4eda6d3b98289cadd8c40fb90433" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Beffrois de Belgique et de France         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Hauts-de-France         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1999         </p>     </div>     </div>`)[0];
+                popup_cdc0a4cd7252c2241369a803d8ffe302.setContent(html_f8ac4eda6d3b98289cadd8c40fb90433);
+            
+        
+
+        marker_f00516c142e1e03455c8fd9987a4ef0d.bindPopup(popup_cdc0a4cd7252c2241369a803d8ffe302)
+        ;
+
+        
+    
+    
+            marker_f00516c142e1e03455c8fd9987a4ef0d.bindTooltip(
+                `<div>
+                     <b>Beffrois de Belgique et de France</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f00516c142e1e03455c8fd9987a4ef0d.setIcon(icon_af6ccecd4ae75b9fd65e2c203c7878ed);
+            
+    
+            var marker_938e4da13238f3c48e641c4cc66d5cce = L.marker(
+                [44.83888888888889, 0.5722222222222222],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_a239f370f4dc74d44d93670afdcf7de0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9506c45ef9d058a3c952b5e8533355f9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_23936fe28a7deae11cf6a2fcbb67b67d = $(`<div id="html_23936fe28a7deae11cf6a2fcbb67b67d" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Bordeaux,Port de la Lune         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Nouvelle-Aquitaine         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2007         </p>     </div>     </div>`)[0];
+                popup_9506c45ef9d058a3c952b5e8533355f9.setContent(html_23936fe28a7deae11cf6a2fcbb67b67d);
+            
+        
+
+        marker_938e4da13238f3c48e641c4cc66d5cce.bindPopup(popup_9506c45ef9d058a3c952b5e8533355f9)
+        ;
+
+        
+    
+    
+            marker_938e4da13238f3c48e641c4cc66d5cce.bindTooltip(
+                `<div>
+                     <b>Bordeaux,Port de la Lune</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_938e4da13238f3c48e641c4cc66d5cce.setIcon(icon_a239f370f4dc74d44d93670afdcf7de0);
+            
+    
+            var marker_9fbff117ab764e6da9fc8f22100af821 = L.marker(
+                [43.61138888888889, 1.4163888888888887],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_139e256c4dc4217b160ac5bed5eec7ee = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8d4835f59268441569e8af3c715a9e7b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b93087b36b29cd8950054ce890c6fcd9 = $(`<div id="html_b93087b36b29cd8950054ce890c6fcd9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Canal du Midi         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Occitanie         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1996         </p>     </div>     </div>`)[0];
+                popup_8d4835f59268441569e8af3c715a9e7b.setContent(html_b93087b36b29cd8950054ce890c6fcd9);
+            
+        
+
+        marker_9fbff117ab764e6da9fc8f22100af821.bindPopup(popup_8d4835f59268441569e8af3c715a9e7b)
+        ;
+
+        
+    
+    
+            marker_9fbff117ab764e6da9fc8f22100af821.bindTooltip(
+                `<div>
+                     <b>Canal du Midi</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9fbff117ab764e6da9fc8f22100af821.setIcon(icon_139e256c4dc4217b160ac5bed5eec7ee);
+            
+    
+            var marker_b3a87298d4462b4091a523dd4d51e67e = L.marker(
+                [49.894444444444446, 2.301944444444444],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_53e6cccf724986e1392206aa02acfe48 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3e40aba7a4a8d5b4ba0dac8fcadb2f77 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c42fac289226fe2a7313be42bb0e6cb2 = $(`<div id="html_c42fac289226fe2a7313be42bb0e6cb2" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Cathédrale d'Amiens         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Hauts-de-France         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1981         </p>     </div>     </div>`)[0];
+                popup_3e40aba7a4a8d5b4ba0dac8fcadb2f77.setContent(html_c42fac289226fe2a7313be42bb0e6cb2);
+            
+        
+
+        marker_b3a87298d4462b4091a523dd4d51e67e.bindPopup(popup_3e40aba7a4a8d5b4ba0dac8fcadb2f77)
+        ;
+
+        
+    
+    
+            marker_b3a87298d4462b4091a523dd4d51e67e.bindTooltip(
+                `<div>
+                     <b>Cathédrale d'Amiens</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b3a87298d4462b4091a523dd4d51e67e.setIcon(icon_53e6cccf724986e1392206aa02acfe48);
+            
+    
+            var marker_8b18f86c5c80eb2db5f991f848af6a8c = L.marker(
+                [47.08222222222223, 2.3983333333333334],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_f95df50fd6a9a3ac72b92d14353073d5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_dd2a5310fda9a3053930ecd914e76bbb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_81d763ae00c36626a46de86bd56a26de = $(`<div id="html_81d763ae00c36626a46de86bd56a26de" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Cathédrale de Bourges         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Centre-Val de Loire         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1992         </p>     </div>     </div>`)[0];
+                popup_dd2a5310fda9a3053930ecd914e76bbb.setContent(html_81d763ae00c36626a46de86bd56a26de);
+            
+        
+
+        marker_8b18f86c5c80eb2db5f991f848af6a8c.bindPopup(popup_dd2a5310fda9a3053930ecd914e76bbb)
+        ;
+
+        
+    
+    
+            marker_8b18f86c5c80eb2db5f991f848af6a8c.bindTooltip(
+                `<div>
+                     <b>Cathédrale de Bourges</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8b18f86c5c80eb2db5f991f848af6a8c.setIcon(icon_f95df50fd6a9a3ac72b92d14353073d5);
+            
+    
+            var marker_8e92643ae64f5d7d71128d47ff02d15c = L.marker(
+                [48.4475, 1.4872222222222222],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_9164bf850e957bbd6ccc852df3afe32c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c44e767ad65c865cb52c5bd7de9c008e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7cf2cc9ad22a8601cef504840bd74271 = $(`<div id="html_7cf2cc9ad22a8601cef504840bd74271" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Cathédrale de Chartres         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Centre-Val de Loire         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1979         </p>     </div>     </div>`)[0];
+                popup_c44e767ad65c865cb52c5bd7de9c008e.setContent(html_7cf2cc9ad22a8601cef504840bd74271);
+            
+        
+
+        marker_8e92643ae64f5d7d71128d47ff02d15c.bindPopup(popup_c44e767ad65c865cb52c5bd7de9c008e)
+        ;
+
+        
+    
+    
+            marker_8e92643ae64f5d7d71128d47ff02d15c.bindTooltip(
+                `<div>
+                     <b>Cathédrale de Chartres</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8e92643ae64f5d7d71128d47ff02d15c.setIcon(icon_9164bf850e957bbd6ccc852df3afe32c);
+            
+    
+            var marker_b6c0e037ab1baffb28cea12c1bb34705 = L.marker(
+                [49.25333333333333, 4.032777777777778],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_6222e8b47439dfcd8562355176605c02 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a0fc71cf536bada5f15d4b6dd0d1b72d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4d2410a5253df84d9d79df63e56798de = $(`<div id="html_4d2410a5253df84d9d79df63e56798de" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Cathédrale Notre-Dame,ancienne abbaye Saint-Rémietpalais du Tau,Reims         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Grand Est         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1991         </p>     </div>     </div>`)[0];
+                popup_a0fc71cf536bada5f15d4b6dd0d1b72d.setContent(html_4d2410a5253df84d9d79df63e56798de);
+            
+        
+
+        marker_b6c0e037ab1baffb28cea12c1bb34705.bindPopup(popup_a0fc71cf536bada5f15d4b6dd0d1b72d)
+        ;
+
+        
+    
+    
+            marker_b6c0e037ab1baffb28cea12c1bb34705.bindTooltip(
+                `<div>
+                     <b>Cathédrale Notre-Dame,ancienne abbaye Saint-Rémietpalais du Tau,Reims</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b6c0e037ab1baffb28cea12c1bb34705.setIcon(icon_6222e8b47439dfcd8562355176605c02);
+            
+    
+            var marker_e68e7e62e239a84220bebeb19f5a92fb = L.marker(
+                [43.95277777777778, 4.806111111111111],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_cc32709d552b23a8c19abd8f37c322d4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d52061c38317e8adb68a05cabd808587 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a19b965965cf6df9379c93e756b47bb3 = $(`<div id="html_a19b965965cf6df9379c93e756b47bb3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Centre historique d'Avignon:Palais des papes, ensemble épiscopal etPont d'Avignon         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Provence-Alpes-Côte d'Azur         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1995         </p>     </div>     </div>`)[0];
+                popup_d52061c38317e8adb68a05cabd808587.setContent(html_a19b965965cf6df9379c93e756b47bb3);
+            
+        
+
+        marker_e68e7e62e239a84220bebeb19f5a92fb.bindPopup(popup_d52061c38317e8adb68a05cabd808587)
+        ;
+
+        
+    
+    
+            marker_e68e7e62e239a84220bebeb19f5a92fb.bindTooltip(
+                `<div>
+                     <b>Centre historique d'Avignon:Palais des papes, ensemble épiscopal etPont d'Avignon</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e68e7e62e239a84220bebeb19f5a92fb.setIcon(icon_cc32709d552b23a8c19abd8f37c322d4);
+            
+    
+            var marker_e27f2b6aed984dfb52e51ce6274abe2f = L.marker(
+                [45.18416666666666, 0.7227777777777777],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_a60d4f10fad1ec21b371f48d09bc8532 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_02bc161a55db543c62dbccc670bd7c28 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6479b8bd1da50c6b287f71c9c5cc676c = $(`<div id="html_6479b8bd1da50c6b287f71c9c5cc676c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Chemins de Saint-Jacques-de-Compostelle en France         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Auvergne-Rhône-Alpes,Bourgogne-Franche-Comté,Centre-Val de Loire,Grand Est,Hauts-de-France,Île-de-France,Normandie,Nouvelle-Aquitaine,OccitanieetProvence-Alpes-Côte d'Azur         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1998         </p>     </div>     </div>`)[0];
+                popup_02bc161a55db543c62dbccc670bd7c28.setContent(html_6479b8bd1da50c6b287f71c9c5cc676c);
+            
+        
+
+        marker_e27f2b6aed984dfb52e51ce6274abe2f.bindPopup(popup_02bc161a55db543c62dbccc670bd7c28)
+        ;
+
+        
+    
+    
+            marker_e27f2b6aed984dfb52e51ce6274abe2f.bindTooltip(
+                `<div>
+                     <b>Chemins de Saint-Jacques-de-Compostelle en France</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e27f2b6aed984dfb52e51ce6274abe2f.setIcon(icon_a60d4f10fad1ec21b371f48d09bc8532);
+            
+    
+            var marker_e9a2c42eb9afb1f052398b2ec8e6bf62 = L.marker(
+                [43.92833333333333, 2.1425],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_caf5e56bf8d95e4e4d9f198ff613e313 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_75a64db6612610efc61cd27655cae9bd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bcfe18010385a83d4026cba714ee76d5 = $(`<div id="html_bcfe18010385a83d4026cba714ee76d5" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Cité épiscopale d'Albi         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Occitanie         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2010         </p>     </div>     </div>`)[0];
+                popup_75a64db6612610efc61cd27655cae9bd.setContent(html_bcfe18010385a83d4026cba714ee76d5);
+            
+        
+
+        marker_e9a2c42eb9afb1f052398b2ec8e6bf62.bindPopup(popup_75a64db6612610efc61cd27655cae9bd)
+        ;
+
+        
+    
+    
+            marker_e9a2c42eb9afb1f052398b2ec8e6bf62.bindTooltip(
+                `<div>
+                     <b>Cité épiscopale d'Albi</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e9a2c42eb9afb1f052398b2ec8e6bf62.setIcon(icon_caf5e56bf8d95e4e4d9f198ff613e313);
+            
+    
+            var marker_8d89dd35448bfcfce5217adc34ee129b = L.marker(
+                [49.14194444444444, 4.148055555555556],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_89ad0b59a79c8a923e0d6d8388ce6c1d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c36c480512d1abc1fb694d9a1a253b1c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6ca33562e8905e831da69555cdb9584d = $(`<div id="html_6ca33562e8905e831da69555cdb9584d" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Coteaux, maisons et caves de Champagne         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Grand Est         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2015         </p>     </div>     </div>`)[0];
+                popup_c36c480512d1abc1fb694d9a1a253b1c.setContent(html_6ca33562e8905e831da69555cdb9584d);
+            
+        
+
+        marker_8d89dd35448bfcfce5217adc34ee129b.bindPopup(popup_c36c480512d1abc1fb694d9a1a253b1c)
+        ;
+
+        
+    
+    
+            marker_8d89dd35448bfcfce5217adc34ee129b.bindTooltip(
+                `<div>
+                     <b>Coteaux, maisons et caves de Champagne</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8d89dd35448bfcfce5217adc34ee129b.setIcon(icon_89ad0b59a79c8a923e0d6d8388ce6c1d);
+            
+    
+            var marker_30880686542c4a5b56fb0b8896ad492b = L.marker(
+                [46.9375, 5.876388888888889],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_676c24e6b7834f77d3fd76e9f07ac72e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4990c61c83d0763c62d8ef5ad6e1c187 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e61c4206c5d642e38c060fe715066414 = $(`<div id="html_e61c4206c5d642e38c060fe715066414" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>De lagrande saline de Salins-les-Bainsà lasaline royale d'Arc-et-Senans, laproductiondusel ignigène         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Bourgogne-Franche-Comté         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1982         </p>     </div>     </div>`)[0];
+                popup_4990c61c83d0763c62d8ef5ad6e1c187.setContent(html_e61c4206c5d642e38c060fe715066414);
+            
+        
+
+        marker_30880686542c4a5b56fb0b8896ad492b.bindPopup(popup_4990c61c83d0763c62d8ef5ad6e1c187)
+        ;
+
+        
+    
+    
+            marker_30880686542c4a5b56fb0b8896ad492b.bindTooltip(
+                `<div>
+                     <b>De lagrande saline de Salins-les-Bainsà lasaline royale d'Arc-et-Senans, laproductiondusel ignigène</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_30880686542c4a5b56fb0b8896ad492b.setIcon(icon_676c24e6b7834f77d3fd76e9f07ac72e);
+            
+    
+            var marker_9aa35ae0d823835517cf315a8cf2e513 = L.marker(
+                [50.2825, 2.758888888888889],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_9ed8da2620b7466b30c44c9f73a40aa9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7e636edfe03114559f5df21d69bc872f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_257ae8d40669f2cc9b8918263b057391 = $(`<div id="html_257ae8d40669f2cc9b8918263b057391" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Fortifications de Vauban         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Bourgogne-Franche-Comté,Bretagne,Grand Est,Hauts-de-France,Normandie,Nouvelle-Aquitaine,OccitanieetProvence-Alpes-Côte d'Azur         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2008         </p>     </div>     </div>`)[0];
+                popup_7e636edfe03114559f5df21d69bc872f.setContent(html_257ae8d40669f2cc9b8918263b057391);
+            
+        
+
+        marker_9aa35ae0d823835517cf315a8cf2e513.bindPopup(popup_7e636edfe03114559f5df21d69bc872f)
+        ;
+
+        
+    
+    
+            marker_9aa35ae0d823835517cf315a8cf2e513.bindTooltip(
+                `<div>
+                     <b>Fortifications de Vauban</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9aa35ae0d823835517cf315a8cf2e513.setIcon(icon_9ed8da2620b7466b30c44c9f73a40aa9);
+            
+    
+            var marker_191b17cb071276841699cbd5298f5e4f = L.marker(
+                [42.32527777777778, 8.62888888888889],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_e9cb921ba1c76cb6c1c4e40214a06908 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#27ae60",
+  "icon": "fa-tree",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c8ea5f48645a0b10bbb4e9cec8a798e2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_83663138e0df01c7c2e77771c218eb1a = $(`<div id="html_83663138e0df01c7c2e77771c218eb1a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #27ae60; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #27ae60; padding-bottom: 5px;">             <i class="fa fa-tree" style="margin-right: 8px;"></i>Golfe de Porto:calanche de Piana,golfe de Girolata,réserve de Scandola         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #27ae60; margin-right: 5px;"></i>             <strong>Région:</strong> Corse         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #27ae60; margin-right: 5px;"></i>             <strong>Type:</strong> Naturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #27ae60; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1983         </p>     </div>     </div>`)[0];
+                popup_c8ea5f48645a0b10bbb4e9cec8a798e2.setContent(html_83663138e0df01c7c2e77771c218eb1a);
+            
+        
+
+        marker_191b17cb071276841699cbd5298f5e4f.bindPopup(popup_c8ea5f48645a0b10bbb4e9cec8a798e2)
+        ;
+
+        
+    
+    
+            marker_191b17cb071276841699cbd5298f5e4f.bindTooltip(
+                `<div>
+                     <b>Golfe de Porto:calanche de Piana,golfe de Girolata,réserve de Scandola</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_191b17cb071276841699cbd5298f5e4f.setIcon(icon_e9cb921ba1c76cb6c1c4e40214a06908);
+            
+    
+            var marker_b5f6358bebcca81c1c6b6d0ad8df2d33 = L.marker(
+                [44.3875, 4.4141666666666675],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_0dfd22c192cfcef422eca38990ada8be = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_33c5b4dff4f48b428f7c558fe239433c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b9ab17c9d1535771ee48581a497474ea = $(`<div id="html_b9ab17c9d1535771ee48581a497474ea" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Grotte ornée du Pont d'Arc, dite grotte Chauvet-Pont d'Arc,Ardèche         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Auvergne-Rhône-Alpes         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2014         </p>     </div>     </div>`)[0];
+                popup_33c5b4dff4f48b428f7c558fe239433c.setContent(html_b9ab17c9d1535771ee48581a497474ea);
+            
+        
+
+        marker_b5f6358bebcca81c1c6b6d0ad8df2d33.bindPopup(popup_33c5b4dff4f48b428f7c558fe239433c)
+        ;
+
+        
+    
+    
+            marker_b5f6358bebcca81c1c6b6d0ad8df2d33.bindTooltip(
+                `<div>
+                     <b>Grotte ornée du Pont d'Arc, dite grotte Chauvet-Pont d'Arc,Ardèche</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b5f6358bebcca81c1c6b6d0ad8df2d33.setIcon(icon_0dfd22c192cfcef422eca38990ada8be);
+            
+    
+            var marker_5523e0cabb8a70e76d77842af74d265a = L.marker(
+                [45.77194444444444, 2.966111111111111],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_7815f70cc104406f45aab360184d3a91 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#27ae60",
+  "icon": "fa-tree",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_eed163e01cea086272525ef8136f59b4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f0ffd73f73d7bd528715c505b9ad7c80 = $(`<div id="html_f0ffd73f73d7bd528715c505b9ad7c80" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #27ae60; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #27ae60; padding-bottom: 5px;">             <i class="fa fa-tree" style="margin-right: 8px;"></i>Haut lieu tectonique Chaîne des Puys - faille de Limagne         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #27ae60; margin-right: 5px;"></i>             <strong>Région:</strong> Auvergne-Rhône-Alpes         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #27ae60; margin-right: 5px;"></i>             <strong>Type:</strong> Naturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #27ae60; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2018         </p>     </div>     </div>`)[0];
+                popup_eed163e01cea086272525ef8136f59b4.setContent(html_f0ffd73f73d7bd528715c505b9ad7c80);
+            
+        
+
+        marker_5523e0cabb8a70e76d77842af74d265a.bindPopup(popup_eed163e01cea086272525ef8136f59b4)
+        ;
+
+        
+    
+    
+            marker_5523e0cabb8a70e76d77842af74d265a.bindTooltip(
+                `<div>
+                     <b>Haut lieu tectonique Chaîne des Puys - faille de Limagne</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5523e0cabb8a70e76d77842af74d265a.setIcon(icon_7815f70cc104406f45aab360184d3a91);
+            
+    
+            var marker_350577890aaa5bdf37611111432e54fc = L.marker(
+                [44.89472222222222, 0.15527777777777776],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_dd17ca331995515983e307d5f0de1167 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2822159702af643a34b08d39658ecef7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a6c9c6744b2b48770aa3507b71c4adb1 = $(`<div id="html_a6c9c6744b2b48770aa3507b71c4adb1" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Juridiction de Saint-Émilion         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Nouvelle-Aquitaine         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1999         </p>     </div>     </div>`)[0];
+                popup_2822159702af643a34b08d39658ecef7.setContent(html_a6c9c6744b2b48770aa3507b71c4adb1);
+            
+        
+
+        marker_350577890aaa5bdf37611111432e54fc.bindPopup(popup_2822159702af643a34b08d39658ecef7)
+        ;
+
+        
+    
+    
+            marker_350577890aaa5bdf37611111432e54fc.bindTooltip(
+                `<div>
+                     <b>Juridiction de Saint-Émilion</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_350577890aaa5bdf37611111432e54fc.setIcon(icon_dd17ca331995515983e307d5f0de1167);
+            
+    
+            var marker_7945efce90148f7bbcfe611f6eeafa57 = L.marker(
+                [43.501666666666665, 4.358888888888888],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_b0fdf11cc1db71ef037676bbe98f8097 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1ba627a1854d0ca332240452506c9d9b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f521a55c79b2eea832460dca6efe86da = $(`<div id="html_f521a55c79b2eea832460dca6efe86da" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>LaMaison CarréedeNîmes         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Occitanie         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2023         </p>     </div>     </div>`)[0];
+                popup_1ba627a1854d0ca332240452506c9d9b.setContent(html_f521a55c79b2eea832460dca6efe86da);
+            
+        
+
+        marker_7945efce90148f7bbcfe611f6eeafa57.bindPopup(popup_1ba627a1854d0ca332240452506c9d9b)
+        ;
+
+        
+    
+    
+            marker_7945efce90148f7bbcfe611f6eeafa57.bindTooltip(
+                `<div>
+                     <b>LaMaison CarréedeNîmes</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7945efce90148f7bbcfe611f6eeafa57.setIcon(icon_b0fdf11cc1db71ef037676bbe98f8097);
+            
+    
+            var marker_a74e0f582a6bb0bfc57c3f7677141f74 = L.marker(
+                [49.49277777777778, 0.10750000000000001],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_338dd93f05646713e285732a5051ad48 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cd3b0ab5bc78f6d9c5251cabeef815f5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2bd499c3771f75bc5802e59c0712b169 = $(`<div id="html_2bd499c3771f75bc5802e59c0712b169" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Le Havre, la ville reconstruiteparAuguste Perret         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Normandie         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2005         </p>     </div>     </div>`)[0];
+                popup_cd3b0ab5bc78f6d9c5251cabeef815f5.setContent(html_2bd499c3771f75bc5802e59c0712b169);
+            
+        
+
+        marker_a74e0f582a6bb0bfc57c3f7677141f74.bindPopup(popup_cd3b0ab5bc78f6d9c5251cabeef815f5)
+        ;
+
+        
+    
+    
+            marker_a74e0f582a6bb0bfc57c3f7677141f74.bindTooltip(
+                `<div>
+                     <b>Le Havre, la ville reconstruiteparAuguste Perret</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a74e0f582a6bb0bfc57c3f7677141f74.setIcon(icon_338dd93f05646713e285732a5051ad48);
+            
+    
+            var marker_b6b0125dd0afc71b22c8ad1e17a7ac86 = L.marker(
+                [45.586111111111116, 1.1730555555555557],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_1df2c6271364608412358b555a2f1603 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_febed1f2e6988eb7d8a959644e7b5d56 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_af2f04c84eea618b3776bfd6cde02b5c = $(`<div id="html_af2f04c84eea618b3776bfd6cde02b5c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Lephare de Cordouan         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Nouvelle-Aquitaine         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2021         </p>     </div>     </div>`)[0];
+                popup_febed1f2e6988eb7d8a959644e7b5d56.setContent(html_af2f04c84eea618b3776bfd6cde02b5c);
+            
+        
+
+        marker_b6b0125dd0afc71b22c8ad1e17a7ac86.bindPopup(popup_febed1f2e6988eb7d8a959644e7b5d56)
+        ;
+
+        
+    
+    
+            marker_b6b0125dd0afc71b22c8ad1e17a7ac86.bindTooltip(
+                `<div>
+                     <b>Lephare de Cordouan</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b6b0125dd0afc71b22c8ad1e17a7ac86.setIcon(icon_1df2c6271364608412358b555a2f1603);
+            
+    
+            var marker_d3b3bf564c42e46c3f8268c3178ec801 = L.marker(
+                [44.22027777777778, 3.473055555555556],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_cda820177fed388518d0df9447d13bf9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ed5ee407ca1fd7709e1dd14b5894fd60 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_84326d95c7dfd16c1ea454a186671d70 = $(`<div id="html_84326d95c7dfd16c1ea454a186671d70" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Les Causses et les Cévennes, paysage culturel de l'agro-pastoralismeméditerranéen         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Occitanie         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2011         </p>     </div>     </div>`)[0];
+                popup_ed5ee407ca1fd7709e1dd14b5894fd60.setContent(html_84326d95c7dfd16c1ea454a186671d70);
+            
+        
+
+        marker_d3b3bf564c42e46c3f8268c3178ec801.bindPopup(popup_ed5ee407ca1fd7709e1dd14b5894fd60)
+        ;
+
+        
+    
+    
+            marker_d3b3bf564c42e46c3f8268c3178ec801.bindTooltip(
+                `<div>
+                     <b>Les Causses et les Cévennes, paysage culturel de l'agro-pastoralismeméditerranéen</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d3b3bf564c42e46c3f8268c3178ec801.setIcon(icon_cda820177fed388518d0df9447d13bf9);
+            
+    
+            var marker_bd952dea3a800494f8226258720a53d5 = L.marker(
+                [47.16694444444444, 4.95],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_69c113578d682e6cd240a2b9760bf506 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7f42adaad078d6daa6defee08e8966f8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_21a90bb9d04be082ac2c6b00e00e5812 = $(`<div id="html_21a90bb9d04be082ac2c6b00e00e5812" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Lesclimatsduvignoble de Bourgogne         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Bourgogne-Franche-Comté         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2015         </p>     </div>     </div>`)[0];
+                popup_7f42adaad078d6daa6defee08e8966f8.setContent(html_21a90bb9d04be082ac2c6b00e00e5812);
+            
+        
+
+        marker_bd952dea3a800494f8226258720a53d5.bindPopup(popup_7f42adaad078d6daa6defee08e8966f8)
+        ;
+
+        
+    
+    
+            marker_bd952dea3a800494f8226258720a53d5.bindTooltip(
+                `<div>
+                     <b>Lesclimatsduvignoble de Bourgogne</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bd952dea3a800494f8226258720a53d5.setIcon(icon_69c113578d682e6cd240a2b9760bf506);
+            
+    
+            var marker_470df01e7a1c6a7d60501f5656989e6d = L.marker(
+                [46.12694444444445, 3.418611111111111],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_05b814148d110f1ac85ffb70599d2278 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d5aeb687189d7d6aea1055f55dbe4b0f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_865743ff0f3018c84199b329b68805ca = $(`<div id="html_865743ff0f3018c84199b329b68805ca" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Lesgrandes villes d'eaux d'Europe         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Auvergne-Rhône-Alpes         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2021         </p>     </div>     </div>`)[0];
+                popup_d5aeb687189d7d6aea1055f55dbe4b0f.setContent(html_865743ff0f3018c84199b329b68805ca);
+            
+        
+
+        marker_470df01e7a1c6a7d60501f5656989e6d.bindPopup(popup_d5aeb687189d7d6aea1055f55dbe4b0f)
+        ;
+
+        
+    
+    
+            marker_470df01e7a1c6a7d60501f5656989e6d.bindTooltip(
+                `<div>
+                     <b>Lesgrandes villes d'eaux d'Europe</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_470df01e7a1c6a7d60501f5656989e6d.setIcon(icon_05b814148d110f1ac85ffb70599d2278);
+            
+    
+            var marker_31bca068b682f6c025cd41628bb23734 = L.marker(
+                [50.4, 2.71],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_d15eb7a4ab7bbf410daaf943b6fd620a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_98a0d98813daf018276b3a25bb32bf86 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_120b90d50fc2a1e28519ccee5905a06a = $(`<div id="html_120b90d50fc2a1e28519ccee5905a06a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Lessites funéraires et mémoriels de la Première Guerre mondiale (Front Ouest)         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Hauts-de-France,Île-de-France,Grand Est,Bourgogne-Franche-Comté         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2023         </p>     </div>     </div>`)[0];
+                popup_98a0d98813daf018276b3a25bb32bf86.setContent(html_120b90d50fc2a1e28519ccee5905a06a);
+            
+        
+
+        marker_31bca068b682f6c025cd41628bb23734.bindPopup(popup_98a0d98813daf018276b3a25bb32bf86)
+        ;
+
+        
+    
+    
+            marker_31bca068b682f6c025cd41628bb23734.bindTooltip(
+                `<div>
+                     <b>Lessites funéraires et mémoriels de la Première Guerre mondiale (Front Ouest)</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_31bca068b682f6c025cd41628bb23734.setIcon(icon_d15eb7a4ab7bbf410daaf943b6fd620a);
+            
+    
+            var marker_130d33250bcaf5a84566ac9171649532 = L.marker(
+                [48.85194444444445, 2.265],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_47c416bda995e6a9316a4dfb1ab3ae96 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_57a36446c9a16150e49acc660df13031 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6c409b4072e15f620d6a319f317c0762 = $(`<div id="html_6c409b4072e15f620d6a319f317c0762" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>L'œuvre architecturale de Le Corbusier, une contribution exceptionnelle auMouvement Moderne         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Auvergne-Rhône-Alpes,Bourgogne-Franche-Comté,Grand Est,Île-de-France,Nouvelle-AquitaineetProvence-Alpes-Côte d'Azur         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2016         </p>     </div>     </div>`)[0];
+                popup_57a36446c9a16150e49acc660df13031.setContent(html_6c409b4072e15f620d6a319f317c0762);
+            
+        
+
+        marker_130d33250bcaf5a84566ac9171649532.bindPopup(popup_57a36446c9a16150e49acc660df13031)
+        ;
+
+        
+    
+    
+            marker_130d33250bcaf5a84566ac9171649532.bindTooltip(
+                `<div>
+                     <b>L'œuvre architecturale de Le Corbusier, une contribution exceptionnelle auMouvement Moderne</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_130d33250bcaf5a84566ac9171649532.setIcon(icon_47c416bda995e6a9316a4dfb1ab3ae96);
+            
+    
+            var marker_09c373cd1b004dfb56bf33a6b66494a4 = L.marker(
+                [47.61611111111111, 3.0872222222222225],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_47b450463b52be816cdc8974ee4eaba2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ead91825dcbf3b5c48c42cd75abe574c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1a5369cb5892fed1d158d4af22ee40f2 = $(`<div id="html_1a5369cb5892fed1d158d4af22ee40f2" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Mégalithes de Carnac et des rives du Morbihan         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Bretagne         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2025         </p>     </div>     </div>`)[0];
+                popup_ead91825dcbf3b5c48c42cd75abe574c.setContent(html_1a5369cb5892fed1d158d4af22ee40f2);
+            
+        
+
+        marker_09c373cd1b004dfb56bf33a6b66494a4.bindPopup(popup_ead91825dcbf3b5c48c42cd75abe574c)
+        ;
+
+        
+    
+    
+            marker_09c373cd1b004dfb56bf33a6b66494a4.bindTooltip(
+                `<div>
+                     <b>Mégalithes de Carnac et des rives du Morbihan</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_09c373cd1b004dfb56bf33a6b66494a4.setIcon(icon_47b450463b52be816cdc8974ee4eaba2);
+            
+    
+            var marker_2108536dec21200fdd2d2c2ca32531f3 = L.marker(
+                [48.635555555555555, 1.5105555555555557],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_4f176604497a92ea531dd4714e85664a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_af56678cb0e492c97ebb270abd65969d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_21dfd3877d8c01f663d04ad509c898d2 = $(`<div id="html_21dfd3877d8c01f663d04ad509c898d2" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Mont-Saint-Michelet sabaie         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> BretagneetNormandie         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1979         </p>     </div>     </div>`)[0];
+                popup_af56678cb0e492c97ebb270abd65969d.setContent(html_21dfd3877d8c01f663d04ad509c898d2);
+            
+        
+
+        marker_2108536dec21200fdd2d2c2ca32531f3.bindPopup(popup_af56678cb0e492c97ebb270abd65969d)
+        ;
+
+        
+    
+    
+            marker_2108536dec21200fdd2d2c2ca32531f3.bindTooltip(
+                `<div>
+                     <b>Mont-Saint-Michelet sabaie</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2108536dec21200fdd2d2c2ca32531f3.setIcon(icon_4f176604497a92ea531dd4714e85664a);
+            
+    
+            var marker_9f5055c08cee99a01fb47239e55960ff = L.marker(
+                [48.401944444444446, 2.698055555555556],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_c9fdc74416f92c88f32536091b35acdc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b61f943e91fd404f07d564e1cb799334 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_999216d76122f301477ab6141144740c = $(`<div id="html_999216d76122f301477ab6141144740c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Palais et parc de Fontainebleau         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Île-de-France         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1981         </p>     </div>     </div>`)[0];
+                popup_b61f943e91fd404f07d564e1cb799334.setContent(html_999216d76122f301477ab6141144740c);
+            
+        
+
+        marker_9f5055c08cee99a01fb47239e55960ff.bindPopup(popup_b61f943e91fd404f07d564e1cb799334)
+        ;
+
+        
+    
+    
+            marker_9f5055c08cee99a01fb47239e55960ff.bindTooltip(
+                `<div>
+                     <b>Palais et parc de Fontainebleau</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9f5055c08cee99a01fb47239e55960ff.setIcon(icon_c9fdc74416f92c88f32536091b35acdc);
+            
+    
+            var marker_e5ab3337afa83ebff32f502fc99cc626 = L.marker(
+                [48.805, 2.1194444444444445],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_da6df08d95f54aa589c11d20ec2a5b73 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b15773b0e8da8a66f41c96a3730b3c58 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ec433ceab12ce1a2d3607f3b089e6f71 = $(`<div id="html_ec433ceab12ce1a2d3607f3b089e6f71" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Palaisetparc de Versailles         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Île-de-France         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1979         </p>     </div>     </div>`)[0];
+                popup_b15773b0e8da8a66f41c96a3730b3c58.setContent(html_ec433ceab12ce1a2d3607f3b089e6f71);
+            
+        
+
+        marker_e5ab3337afa83ebff32f502fc99cc626.bindPopup(popup_b15773b0e8da8a66f41c96a3730b3c58)
+        ;
+
+        
+    
+    
+            marker_e5ab3337afa83ebff32f502fc99cc626.bindTooltip(
+                `<div>
+                     <b>Palaisetparc de Versailles</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e5ab3337afa83ebff32f502fc99cc626.setIcon(icon_da6df08d95f54aa589c11d20ec2a5b73);
+            
+    
+            var marker_7d816690a7d10da32e1b6c202b671e38 = L.marker(
+                [48.858333333333334, 2.2941666666666665],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_748fcd5b8fe315284569f7e7a295b5ee = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1e0b3e92fccb5d44d4d3548852778e55 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3b03a55aea8dae75d57eab9d8ca2bfbc = $(`<div id="html_3b03a55aea8dae75d57eab9d8ca2bfbc" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Paris, rives de la Seine         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Île-de-France         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1991         </p>     </div>     </div>`)[0];
+                popup_1e0b3e92fccb5d44d4d3548852778e55.setContent(html_3b03a55aea8dae75d57eab9d8ca2bfbc);
+            
+        
+
+        marker_7d816690a7d10da32e1b6c202b671e38.bindPopup(popup_1e0b3e92fccb5d44d4d3548852778e55)
+        ;
+
+        
+    
+    
+            marker_7d816690a7d10da32e1b6c202b671e38.bindTooltip(
+                `<div>
+                     <b>Paris, rives de la Seine</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7d816690a7d10da32e1b6c202b671e38.setIcon(icon_748fcd5b8fe315284569f7e7a295b5ee);
+            
+    
+            var marker_6a7db31bd18c9c67ffba181e69a0ec97 = L.marker(
+                [48.69361111111111, 6.183055555555556],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_3b3cd60d3b729b79e512e93188bf2842 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d02af6d5117e05d0b9d901b480228550 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d79f05516a63d45998d89d00310911a2 = $(`<div id="html_d79f05516a63d45998d89d00310911a2" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>PlacesStanislas,de la Carrièreetd'AllianceàNancy         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Grand Est         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1983         </p>     </div>     </div>`)[0];
+                popup_d02af6d5117e05d0b9d901b480228550.setContent(html_d79f05516a63d45998d89d00310911a2);
+            
+        
+
+        marker_6a7db31bd18c9c67ffba181e69a0ec97.bindPopup(popup_d02af6d5117e05d0b9d901b480228550)
+        ;
+
+        
+    
+    
+            marker_6a7db31bd18c9c67ffba181e69a0ec97.bindTooltip(
+                `<div>
+                     <b>PlacesStanislas,de la Carrièreetd'AllianceàNancy</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6a7db31bd18c9c67ffba181e69a0ec97.setIcon(icon_3b3cd60d3b729b79e512e93188bf2842);
+            
+    
+            var marker_88b80cd261bdc101ba586496df959dae = L.marker(
+                [43.947222222222216, 4.535277777777778],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_e0c162c1b2f43db8d21551a4ff7e8eab = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9f598c56385668fa2318a29604019c03 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_211ea666850a6175c582817c080d1ce6 = $(`<div id="html_211ea666850a6175c582817c080d1ce6" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Pont du Gard         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Occitanie         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1985         </p>     </div>     </div>`)[0];
+                popup_9f598c56385668fa2318a29604019c03.setContent(html_211ea666850a6175c582817c080d1ce6);
+            
+        
+
+        marker_88b80cd261bdc101ba586496df959dae.bindPopup(popup_9f598c56385668fa2318a29604019c03)
+        ;
+
+        
+    
+    
+            marker_88b80cd261bdc101ba586496df959dae.bindTooltip(
+                `<div>
+                     <b>Pont du Gard</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_88b80cd261bdc101ba586496df959dae.setIcon(icon_e0c162c1b2f43db8d21551a4ff7e8eab);
+            
+    
+            var marker_3594ee2c5518b1e70aa9f9da8212a76a = L.marker(
+                [48.55972222222222, 3.298888888888889],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_4995f9ba84e89317b6ba46c6b54cac68 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_60b879e8998f4c3974210212952fe464 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_268c3fb21a20e910e04032ddf95c2d52 = $(`<div id="html_268c3fb21a20e910e04032ddf95c2d52" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Provins, ville de foire médiévale         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Île-de-France         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2001         </p>     </div>     </div>`)[0];
+                popup_60b879e8998f4c3974210212952fe464.setContent(html_268c3fb21a20e910e04032ddf95c2d52);
+            
+        
+
+        marker_3594ee2c5518b1e70aa9f9da8212a76a.bindPopup(popup_60b879e8998f4c3974210212952fe464)
+        ;
+
+        
+    
+    
+            marker_3594ee2c5518b1e70aa9f9da8212a76a.bindTooltip(
+                `<div>
+                     <b>Provins, ville de foire médiévale</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3594ee2c5518b1e70aa9f9da8212a76a.setIcon(icon_4995f9ba84e89317b6ba46c6b54cac68);
+            
+    
+            var marker_b587b140c380c9d5bb958afb2ede2760 = L.marker(
+                [42.68527777777778, 0.0005555555555555556],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_41a972dde98c49d5e24d90750e72af15 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#e67e22",
+  "icon": "fa-mountain-sun",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3ef9a047cd21c6cbdf6702c2fb2619a4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7aa459ca93c93ec45a67a91de76baee6 = $(`<div id="html_7aa459ca93c93ec45a67a91de76baee6" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #e67e22; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #e67e22; padding-bottom: 5px;">             <i class="fa fa-mountain-sun" style="margin-right: 8px;"></i>Pyrénées-Mont Perdu         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #e67e22; margin-right: 5px;"></i>             <strong>Région:</strong> Occitanie         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #e67e22; margin-right: 5px;"></i>             <strong>Type:</strong> Mixte         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #e67e22; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1997         </p>     </div>     </div>`)[0];
+                popup_3ef9a047cd21c6cbdf6702c2fb2619a4.setContent(html_7aa459ca93c93ec45a67a91de76baee6);
+            
+        
+
+        marker_b587b140c380c9d5bb958afb2ede2760.bindPopup(popup_3ef9a047cd21c6cbdf6702c2fb2619a4)
+        ;
+
+        
+    
+    
+            marker_b587b140c380c9d5bb958afb2ede2760.bindTooltip(
+                `<div>
+                     <b>Pyrénées-Mont Perdu</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b587b140c380c9d5bb958afb2ede2760.setIcon(icon_41a972dde98c49d5e24d90750e72af15);
+            
+    
+            var marker_8afc1de125001977df050f8e5489b4a9 = L.marker(
+                [45.76722222222222, 4.833333333333333],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_805a8b73408c78c152f77a710b2aaa01 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_76b83d9f694b3519fa5ea51644b4c29c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ccf34e5bf4de7695e484acec485109d4 = $(`<div id="html_ccf34e5bf4de7695e484acec485109d4" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Site historique de Lyon         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Auvergne-Rhône-Alpes         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1998         </p>     </div>     </div>`)[0];
+                popup_76b83d9f694b3519fa5ea51644b4c29c.setContent(html_ccf34e5bf4de7695e484acec485109d4);
+            
+        
+
+        marker_8afc1de125001977df050f8e5489b4a9.bindPopup(popup_76b83d9f694b3519fa5ea51644b4c29c)
+        ;
+
+        
+    
+    
+            marker_8afc1de125001977df050f8e5489b4a9.bindTooltip(
+                `<div>
+                     <b>Site historique de Lyon</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8afc1de125001977df050f8e5489b4a9.setIcon(icon_805a8b73408c78c152f77a710b2aaa01);
+            
+    
+            var marker_496010d4d5ad23c0dda17bb587b3e42b = L.marker(
+                [47.27833333333333, 8.2075],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_d472802a3e97a9ed7f413f6effbf6698 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_11abc3c4b330fd9ab2e8d99f00618506 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ab523a70dff8ab38ccaa54792d9616c8 = $(`<div id="html_ab523a70dff8ab38ccaa54792d9616c8" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Sites palafittiques préhistoriques autour des Alpes         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Bourgogne-Franche-Comté,Auvergne-Rhône-Alpes         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2011         </p>     </div>     </div>`)[0];
+                popup_11abc3c4b330fd9ab2e8d99f00618506.setContent(html_ab523a70dff8ab38ccaa54792d9616c8);
+            
+        
+
+        marker_496010d4d5ad23c0dda17bb587b3e42b.bindPopup(popup_11abc3c4b330fd9ab2e8d99f00618506)
+        ;
+
+        
+    
+    
+            marker_496010d4d5ad23c0dda17bb587b3e42b.bindTooltip(
+                `<div>
+                     <b>Sites palafittiques préhistoriques autour des Alpes</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_496010d4d5ad23c0dda17bb587b3e42b.setIcon(icon_d472802a3e97a9ed7f413f6effbf6698);
+            
+    
+            var marker_8be08420c31c99a90a0e43d468ded35c = L.marker(
+                [45.0575, 1.1700000000000002],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_bdcf92d4dd0e159f77f8d19f264e39f0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ce76c38754ff780d5bc79332ba0d5b75 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e8b8198788dab50913e4781f4cbe914b = $(`<div id="html_e8b8198788dab50913e4781f4cbe914b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Sites préhistoriques et grottes ornées de la vallée de la Vézère         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Nouvelle-Aquitaine         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1979         </p>     </div>     </div>`)[0];
+                popup_ce76c38754ff780d5bc79332ba0d5b75.setContent(html_e8b8198788dab50913e4781f4cbe914b);
+            
+        
+
+        marker_8be08420c31c99a90a0e43d468ded35c.bindPopup(popup_ce76c38754ff780d5bc79332ba0d5b75)
+        ;
+
+        
+    
+    
+            marker_8be08420c31c99a90a0e43d468ded35c.bindTooltip(
+                `<div>
+                     <b>Sites préhistoriques et grottes ornées de la vallée de la Vézère</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8be08420c31c99a90a0e43d468ded35c.setIcon(icon_bdcf92d4dd0e159f77f8d19f264e39f0);
+            
+    
+            var marker_e915fc9a36aa276f25a444a6946b32c1 = L.marker(
+                [48.581944444444446, 7.746666666666667],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_775be5de0085d5aa26012fb40bdc6245 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_52975f006b0dd0481dd53c8736d0b54f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_49dfad8f8ed46b2c20673fb3b751f39a = $(`<div id="html_49dfad8f8ed46b2c20673fb3b751f39a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Strasbourg: de laGrande-îleà laNeustadt, une scène urbaine européenne         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Grand Est         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1988         </p>     </div>     </div>`)[0];
+                popup_52975f006b0dd0481dd53c8736d0b54f.setContent(html_49dfad8f8ed46b2c20673fb3b751f39a);
+            
+        
+
+        marker_e915fc9a36aa276f25a444a6946b32c1.bindPopup(popup_52975f006b0dd0481dd53c8736d0b54f)
+        ;
+
+        
+    
+    
+            marker_e915fc9a36aa276f25a444a6946b32c1.bindTooltip(
+                `<div>
+                     <b>Strasbourg: de laGrande-îleà laNeustadt, une scène urbaine européenne</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e915fc9a36aa276f25a444a6946b32c1.setIcon(icon_775be5de0085d5aa26012fb40bdc6245);
+            
+    
+            var marker_631490631b70994dfb7c120ebf49b3d0 = L.marker(
+                [44.13583333333333, 4.808333333333334],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_e190f023ab5538d8c1887a1fe1f09074 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_482056fb432d5d81c2eb9b366e8fa373 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_92f98d988f5c8b23d1d59cb85b82c1d3 = $(`<div id="html_92f98d988f5c8b23d1d59cb85b82c1d3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Théâtre antiqueetses abordset« Arc de Triomphe »d'Orange         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Provence-Alpes-Côte d'Azur         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1981         </p>     </div>     </div>`)[0];
+                popup_482056fb432d5d81c2eb9b366e8fa373.setContent(html_92f98d988f5c8b23d1d59cb85b82c1d3);
+            
+        
+
+        marker_631490631b70994dfb7c120ebf49b3d0.bindPopup(popup_482056fb432d5d81c2eb9b366e8fa373)
+        ;
+
+        
+    
+    
+            marker_631490631b70994dfb7c120ebf49b3d0.bindTooltip(
+                `<div>
+                     <b>Théâtre antiqueetses abordset« Arc de Triomphe »d'Orange</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_631490631b70994dfb7c120ebf49b3d0.setIcon(icon_e190f023ab5538d8c1887a1fe1f09074);
+            
+    
+            var marker_cdcbeccae2e56fb71dac02e0bfa17b10 = L.marker(
+                [47.39888888888889, 0.7027777777777777],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_928b9089d84ef5f26b7f2784536e9360 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8da9734fb09dfe91972d99128e358355 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cb63e06b56cb78f3f427cda655d9e16f = $(`<div id="html_cb63e06b56cb78f3f427cda655d9e16f" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Val de LoireentreSully-sur-LoireetChalonnes         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Centre-Val de Loire,Pays de la Loire         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 2000         </p>     </div>     </div>`)[0];
+                popup_8da9734fb09dfe91972d99128e358355.setContent(html_cb63e06b56cb78f3f427cda655d9e16f);
+            
+        
+
+        marker_cdcbeccae2e56fb71dac02e0bfa17b10.bindPopup(popup_8da9734fb09dfe91972d99128e358355)
+        ;
+
+        
+    
+    
+            marker_cdcbeccae2e56fb71dac02e0bfa17b10.bindTooltip(
+                `<div>
+                     <b>Val de LoireentreSully-sur-LoireetChalonnes</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cdcbeccae2e56fb71dac02e0bfa17b10.setIcon(icon_928b9089d84ef5f26b7f2784536e9360);
+            
+    
+            var marker_29eabd162c4663291b0731a922aad694 = L.marker(
+                [43.21055555555556, 2.358888888888889],
+                {
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var icon_7cb947b900777c9c504aecadc56a9a3e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "white",
+  "iconColor": "#3498db",
+  "icon": "fa-landmark",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2c3024db8b047708dcdd4f8bd6c6485b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9c5ba3daec7235eb2144f8e56ad9c112 = $(`<div id="html_9c5ba3daec7235eb2144f8e56ad9c112" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Tahoma, sans-serif; width: 250px;">         <h4 style="color: #3498db; margin: 0 0 10px 0; font-size: 16px; border-bottom: 2px solid #3498db; padding-bottom: 5px;">             <i class="fa fa-landmark" style="margin-right: 8px;"></i>Ville fortifiée historique de Carcassonne         </h4>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-map-pin" style="color: #3498db; margin-right: 5px;"></i>             <strong>Région:</strong> Occitanie         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-tag" style="color: #3498db; margin-right: 5px;"></i>             <strong>Type:</strong> Culturel         </p>         <p style="margin: 5px 0; color: #555; font-size: 13px;">             <i class="fa fa-calendar" style="color: #3498db; margin-right: 5px;"></i>             <strong>Inscrit en:</strong> 1997         </p>     </div>     </div>`)[0];
+                popup_2c3024db8b047708dcdd4f8bd6c6485b.setContent(html_9c5ba3daec7235eb2144f8e56ad9c112);
+            
+        
+
+        marker_29eabd162c4663291b0731a922aad694.bindPopup(popup_2c3024db8b047708dcdd4f8bd6c6485b)
+        ;
+
+        
+    
+    
+            marker_29eabd162c4663291b0731a922aad694.bindTooltip(
+                `<div>
+                     <b>Ville fortifiée historique de Carcassonne</b>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_29eabd162c4663291b0731a922aad694.setIcon(icon_7cb947b900777c9c504aecadc56a9a3e);
+            
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Plein \u00e9cran",
+  "titleCancel": "Quitter",
+  "forceSeparateButton": true,
+}
+            ).addTo(map_3da74bee03a66c1c8bce178a3ede74db);
+        
+    
+            var tile_layer_de7f3aefd853020da3de62f53bfa9cd1 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_2fc432c7d0660cb834975752c2ca220b = new L.Control.MiniMap(
+                tile_layer_de7f3aefd853020da3de62f53bfa9cd1,
+                {
+  "position": "bottomright",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_3da74bee03a66c1c8bce178a3ede74db.addControl(mini_map_2fc432c7d0660cb834975752c2ca220b);
+        
+</script>
+</html>
