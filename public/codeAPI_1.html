@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code API Vélib - Version 1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animation de particules en arrière-plan */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: particlesFloat 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes particlesFloat {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.6s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 15px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 i {
+            color: #10b981;
+            filter: drop-shadow(0 0 10px #10b981);
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .stat {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat i {
+            font-size: 28px;
+            color: #10b981;
+            filter: drop-shadow(0 0 8px #10b981);
+        }
+        
+        .stat-content {
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            margin-top: 3px;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn i {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #10b981dd 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        .code-container {
+            background: rgba(40, 44, 52, 0.98);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
+            animation: scaleIn 0.8s ease-out 0.4s both;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .code-header {
+            background: linear-gradient(135deg, #2d3139 0%, #3a3f4b 100%);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+        
+        .code-title {
+            margin-left: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        pre {
+            margin: 0;
+            padding: 35px;
+            overflow-x: auto;
+            max-height: 700px;
+        }
+        
+        pre::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        
+        pre::-webkit-scrollbar-track {
+            background: #1e2127;
+        }
+        
+        pre::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 6px;
+        }
+        
+        pre::-webkit-scrollbar-thumb:hover {
+            background: #10b981dd;
+        }
+        
+        code {
+            font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        
+        .success-message {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 18px 25px;
+            border-radius: 12px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+            z-index: 1000;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .success-message.show {
+            display: flex;
+            animation: slideInRight 0.4s ease;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .success-message i {
+            font-size: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .header {
+                padding: 25px;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fa-solid fa-bicycle"></i> Code API Vélib - Version 1</h1>
+            <p class="subtitle">API Vélib Paris - Version simple avec carte et graphiques</p>
+            <div class="stats">
+                <div class="stat">
+                    <i class="fa-solid fa-file-code"></i>
+                    <div class="stat-content">
+                        <div class="stat-value">190</div>
+                        <div class="stat-label">lignes de code</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <i class="fa-solid fa-text-width"></i>
+                    <div class="stat-content">
+                        <div class="stat-value">6,733</div>
+                        <div class="stat-label">caractères</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <i class="fa-brands fa-python"></i>
+                    <div class="stat-content">
+                        <div class="stat-value">Python 3</div>
+                        <div class="stat-label">langage</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <button class="btn btn-primary" onclick="copyCode()">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copier le code</span>
+            </button>
+            <a href="./index.html" class="btn btn-secondary">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Retour à l'accueil</span>
+            </a>
+        </div>
+        
+        <div class="code-container">
+            <div class="code-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+                <span class="code-title">Projet_API_Helena_Gabriel_Justine.py</span>
+            </div>
+            <pre><code class="language-python"># -*- coding: utf-8 -*-
+&quot;&quot;&quot;
+Created on Thu Oct 30 09:31:23 2025
+
+@author: jguimara
+&quot;&quot;&quot;
+
+# -*- coding: utf-8 -*-
+&quot;&quot;&quot;
+Created on Tue Oct 28 09:51:36 2025
+
+@author: jguimara
+&quot;&quot;&quot;
+
+import requests
+import pandas as pd
+import folium
+import webbrowser
+import matplotlib.pyplot as plt
+import unicodedata
+
+# Pour normaliser le texte, faire en sorte de trouver la commune même en oubliant une majuscule ou un tiret
+def normalize_text(text: str) -&gt; str:
+    if pd.isna(text):
+        return &quot;&quot;
+    normalized = unicodedata.normalize(&#x27;NFD&#x27;, text)
+    clean_text = &quot;&quot;.join(
+        char for char in normalized if unicodedata.category(char) != &#x27;Mn&#x27;
+    )
+    return clean_text.lower().replace(&#x27;-&#x27;, &#x27; &#x27;).replace(&quot;&#x27;&quot;, &#x27; &#x27;).strip()
+
+#import de l&#x27;API comme dans le cours
+url_base = &quot;https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/velib-disponibilite-en-temps-reel/records&quot;
+resultat = requests.get(url_base).json()
+resultat_final = []
+for i in range(0, resultat[&quot;total_count&quot;], 100):
+ temp = requests.get(url_base + &quot;?limit=100&amp;offset=&quot; + str(i)).json()
+ resultat_final += temp[&quot;results&quot;]
+
+data = pd.DataFrame(resultat_final)
+
+# On prend toutes les communes disponibles pour créer la carte
+communes = sorted(data[&#x27;nom_arrondissement_communes&#x27;].unique())  #cette ligne tri par ordre alphabétique et permets d&#x27;afficher seulement une commune même si elle apparait plusieurs fois
+print(&quot;Choisir parmis les communes suivantes :&quot;, communes)
+
+# DataFrame avec toutes les données 
+stations_selection = data[data[&#x27;nom_arrondissement_communes&#x27;].isin(communes)]
+
+# Demander à l&#x27;utilisateur de saisir le nom de la commune
+commune_choisie = input(&quot;Entrez le nom de la commune (ou &#x27;TOUT&#x27; pour tout Paris) : &quot;)
+
+# Normaliser la commune choisie et les noms de communes dans le dataset
+commune_choisie_norm = normalize_text(commune_choisie)
+
+# Filtrer les stations de cet arrondissement
+if commune_choisie_norm == &quot;tout&quot;:
+    stations_arr = stations_selection  # toutes les stations
+    lat_centre, lon_centre = 48.8566, 2.3522  # centre de Paris
+    zoom = 12  # zoom plus large pour voir toute la ville
+else:
+    # Créer une colonne normalisée pour la recherche
+    stations_selection[&#x27;commune_normalized&#x27;] = stations_selection[&#x27;nom_arrondissement_communes&#x27;].apply(normalize_text)
+    
+    # Filtrer avec la version normalisée
+    stations_arr = stations_selection[stations_selection[&#x27;commune_normalized&#x27;] == commune_choisie_norm]
+    
+    if not stations_arr.empty:
+        lat_centre = stations_arr[&#x27;coordonnees_geo&#x27;].apply(lambda x: x[&#x27;lat&#x27;]).mean()
+        lon_centre = stations_arr[&#x27;coordonnees_geo&#x27;].apply(lambda x: x[&#x27;lon&#x27;]).mean()
+    else:
+        print(&quot; Erreur : Commune non trouvée. Affichage de tout Paris.&quot;)
+        stations_arr = stations_selection
+        lat_centre, lon_centre = 48.8566, 2.3522
+    zoom = 15  # zoom sur la commune
+
+# Créer la carte centrée sur la commune, comme dans le cours
+map_paris = folium.Map(location=[lat_centre, lon_centre], zoom_start=zoom)
+
+# Ajouter un marqueur pour chaque station avec couleur selon la disponibilité
+for idx, row in stations_arr.iterrows():
+    if pd.notna(row[&#x27;capacity&#x27;]):
+        total_bikes = row[&#x27;capacity&#x27;] 
+    else :
+        total_bikes = 0
+    if pd.notna(row[&#x27;numbikesavailable&#x27;]):
+        available_bikes = row[&#x27;numbikesavailable&#x27;]
+    else:
+        available_bikes = 0
+    
+    # Calcul du pourcentage  de vélos disponibles
+    velo_dispo = (available_bikes / total_bikes * 100) if total_bikes &gt; 0 else 0
+    
+    # Choix de la couleur selon le pourcentage
+    if velo_dispo &gt; 80:
+        couleur = &#x27;green&#x27;
+    elif velo_dispo &gt; 50:
+        couleur = &#x27;blue&#x27;
+    elif velo_dispo &gt; 20:
+        couleur = &#x27;orange&#x27;
+    else:
+        couleur = &#x27;red&#x27;
+        
+     # Création de l&#x27;info-bulle
+    info_bulle = f&quot;{row[&#x27;name&#x27;]} - {available_bikes}/{total_bikes} vélos disponible&quot;
+    
+    # carte 
+    folium.Marker(
+        location=[row[&#x27;coordonnees_geo&#x27;][&#x27;lat&#x27;], row[&#x27;coordonnees_geo&#x27;][&#x27;lon&#x27;]],
+        tooltip=info_bulle,
+        icon=folium.Icon(icon=&#x27;bicycle&#x27;, prefix=&#x27;fa&#x27;, color=couleur)
+    ).add_to(map_paris)
+
+
+# Afficher la carte
+carte=map_paris
+
+carte.save(&#x27;1-exo2_2.html&#x27;)
+webbrowser.open_new_tab(&quot;1-exo2_2.html&quot;)
+
+# QUESTION 2 : GRAPHIQUE COMPARATIF
+#  Calculer le taux de disponibilité pour toutes les stations
+stations_selection[&#x27;velo_dispo&#x27;] = stations_selection.apply(
+    lambda row: (row[&#x27;numbikesavailable&#x27;] / row[&#x27;capacity&#x27;] * 100) if row[&#x27;capacity&#x27;] &gt; 0 else 0,
+    axis=1
+)
+
+#  Moyenne par arrondissement
+taux_moyen_arrondissement = stations_selection.groupby(&#x27;nom_arrondissement_communes&#x27;)[&#x27;velo_dispo&#x27;].mean().reset_index()
+taux_moyen_arrondissement = taux_moyen_arrondissement.sort_values(by=&#x27;velo_dispo&#x27;, ascending=False)
+
+
+plt.figure(figsize=(14,6))
+
+# Barres verticales
+bars = plt.bar(taux_moyen_arrondissement[&#x27;nom_arrondissement_communes&#x27;], 
+               taux_moyen_arrondissement[&#x27;velo_dispo&#x27;], color=&#x27;mediumseagreen&#x27;)
+
+plt.ylabel(&quot;Taux moyen de vélos disponibles (%)&quot;)
+plt.xlabel(&quot;Arrondissement / Commune&quot;)
+plt.title(&quot;Taux moyen de disponibilité des vélos par communes&quot;)
+plt.ylim(0,100)
+
+
+# Rotation des labels pour les lire facilement
+plt.xticks(rotation=45, ha=&#x27;right&#x27;)
+plt.tight_layout()
+plt.show()
+
+
+#### QUESTION 3 : Indicateur taux moyen de vélos électriques
+#  Calculer le taux de vélos électriques par station
+stations_selection[&#x27;taux_ebike&#x27;] = stations_selection.apply(
+    lambda row: (row[&#x27;ebike&#x27;] / row[&#x27;numbikesavailable&#x27;] * 100) if row[&#x27;numbikesavailable&#x27;] &gt; 0 else 0,
+    axis=1
+)
+
+#  Moyenne par communes
+taux_moyen_ebike = stations_selection.groupby(&#x27;nom_arrondissement_communes&#x27;)[&#x27;taux_ebike&#x27;].mean().reset_index()
+taux_moyen_ebike = taux_moyen_ebike.sort_values(by=&#x27;taux_ebike&#x27;, ascending=False)
+
+#  Graphique vertical (barres) avec Matplotlib
+plt.figure(figsize=(14,6))
+bars = plt.bar(taux_moyen_ebike[&#x27;nom_arrondissement_communes&#x27;], 
+               taux_moyen_ebike[&#x27;taux_ebike&#x27;], color=&#x27;dodgerblue&#x27;)
+
+plt.ylabel(&quot;Taux moyen de vélos électriques (%)&quot;)
+plt.xlabel(&quot;Arrondissement / Commune&quot;)
+plt.title(&quot;Taux moyen de vélos électriques disponibles par communes&quot;)
+plt.ylim(0,100)
+
+
+# Rotation des labels pour les lire facilement
+plt.xticks(rotation=45, ha=&#x27;right&#x27;)
+plt.tight_layout()
+plt.show()
+
+#### QUESTION 4 
+# Calcul de l&#x27;indicateur
+# Trouver la station avec la plus grande capacité par commune
+station_max_capacite = stations_arr.loc[
+    stations_arr.groupby(&#x27;nom_arrondissement_communes&#x27;)[&#x27;capacity&#x27;].idxmax()
+]
+
+# Afficher le résultat
+print(&quot;\n=== Station avec la plus grande capacité par commune ===\n&quot;)
+for idx, row in station_max_capacite.iterrows():
+    print(f&quot;🏙️ {row[&#x27;nom_arrondissement_communes&#x27;]}&quot;)
+    print(f&quot;   📍 Station : {row[&#x27;name&#x27;]}&quot;)
+    print(f&quot;   🚲 Capacité : {int(row[&#x27;capacity&#x27;])} places&quot;)
+    print()</code></pre>
+        </div>
+    </div>
+    
+    <div class="success-message" id="successMessage">
+        <i class="fa-solid fa-check-circle"></i>
+        <span>Code copié dans le presse-papier !</span>
+    </div>
+    
+    <script>
+        // Initialiser la coloration syntaxique
+        hljs.highlightAll();
+        
+        // Fonction pour copier le code
+        function copyCode() {
+            const codeElement = document.querySelector('code');
+            const textToCopy = codeElement.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const message = document.getElementById('successMessage');
+                message.classList.add('show');
+                
+                setTimeout(() => {
+                    message.classList.remove('show');
+                }, 3000);
+            }).catch(err => {
+                alert('Erreur lors de la copie : ' + err);
+            });
+        }
+    </script>
+</body>
+</html>
