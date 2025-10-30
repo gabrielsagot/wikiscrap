@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code API Vélib - Version 1</title>
+    <title>Code API Vélib V1</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
     <style>
@@ -16,243 +16,135 @@
         }
         
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+            background: #f5f5f7;
             min-height: 100vh;
-            padding: 40px 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        /* Animation de particules en arrière-plan */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-            animation: particlesFloat 20s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        @keyframes particlesFloat {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(50px, 50px); }
+            padding: 60px 20px;
+            color: #1d1d1f;
+            line-height: 1.5;
         }
         
         .container {
-            max-width: 1600px;
+            max-width: 1200px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
         }
         
+        /* Header Section */
         .header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 40px;
-            margin-bottom: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideDown 0.6s ease-out;
-        }
-        
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            text-align: center;
+            margin-bottom: 48px;
         }
         
         h1 {
-            color: white;
-            font-size: 42px;
-            margin-bottom: 15px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        h1 i {
-            color: #10b981;
-            filter: drop-shadow(0 0 10px #10b981);
+            font-size: 48px;
+            font-weight: 600;
+            color: #1d1d1f;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
         }
         
         .subtitle {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 18px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            font-size: 21px;
+            font-weight: 400;
+            color: #86868b;
+            letter-spacing: 0.01em;
         }
         
+        /* Stats Bar */
         .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 32px;
+            padding: 24px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .stat {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .stat:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .stat i {
-            font-size: 28px;
-            color: #10b981;
-            filter: drop-shadow(0 0 8px #10b981);
-        }
-        
-        .stat-content {
-            flex: 1;
+            text-align: center;
         }
         
         .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            color: #34c759;
+            display: block;
+            margin-bottom: 4px;
         }
         
         .stat-label {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 500;
-            margin-top: 3px;
+            font-size: 14px;
+            color: #86868b;
+            font-weight: 400;
         }
         
+        /* Actions Bar */
         .actions {
             display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            animation: fadeIn 0.8s ease-out 0.2s both;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
         }
         
         .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 980px;
+            font-size: 15px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
+            transition: all 0.2s ease;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        
-        .btn span {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .btn i {
-            position: relative;
-            z-index: 1;
+            border: none;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #10b981 0%, #10b981dd 100%);
+            background: #34c759;
             color: white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
         
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0.85;
+            transform: translateY(-1px);
         }
         
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: white;
+            color: #1d1d1f;
+            border: 1px solid #d2d2d7;
         }
         
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-3px);
+            background: #f5f5f7;
         }
         
-        .code-container {
-            background: rgba(40, 44, 52, 0.98);
-            border-radius: 20px;
+        /* Code Window */
+        .code-window {
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
-            animation: scaleIn 0.8s ease-out 0.4s both;
         }
         
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        .code-header {
-            background: linear-gradient(135deg, #2d3139 0%, #3a3f4b 100%);
-            padding: 15px 30px;
+        .window-header {
+            background: #f5f5f7;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 8px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        
+        .window-dots {
+            display: flex;
+            gap: 8px;
         }
         
         .dot {
@@ -261,101 +153,131 @@
             border-radius: 50%;
         }
         
-        .dot.red { background: #ff5f56; }
-        .dot.yellow { background: #ffbd2e; }
-        .dot.green { background: #27c93f; }
+        .dot.red { background: #ff5f57; }
+        .dot.yellow { background: #febc2e; }
+        .dot.green { background: #28c840; }
         
-        .code-title {
-            margin-left: 15px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
+        .window-title {
+            margin-left: 12px;
+            font-size: 13px;
+            color: #86868b;
             font-weight: 500;
         }
         
-        pre {
-            margin: 0;
-            padding: 35px;
+        .code-content {
+            background: #ffffff;
+            padding: 32px;
             overflow-x: auto;
-            max-height: 700px;
+            max-height: 600px;
         }
         
-        pre::-webkit-scrollbar {
+        .code-content::-webkit-scrollbar {
             width: 12px;
             height: 12px;
         }
         
-        pre::-webkit-scrollbar-track {
-            background: #1e2127;
+        .code-content::-webkit-scrollbar-track {
+            background: #f5f5f7;
         }
         
-        pre::-webkit-scrollbar-thumb {
-            background: #10b981;
+        .code-content::-webkit-scrollbar-thumb {
+            background: #d2d2d7;
             border-radius: 6px;
         }
         
-        pre::-webkit-scrollbar-thumb:hover {
-            background: #10b981dd;
+        .code-content::-webkit-scrollbar-thumb:hover {
+            background: #b8b8bd;
+        }
+        
+        pre {
+            margin: 0;
         }
         
         code {
-            font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.7;
+            font-family: 'SF Mono', 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
         }
         
-        .success-message {
+        /* Override highlight.js github theme for cleaner look */
+        .hljs {
+            background: transparent;
+            color: #1d1d1f;
+        }
+        
+        .hljs-comment {
+            color: #86868b;
+            font-style: normal;
+        }
+        
+        .hljs-string {
+            color: #c41a16;
+        }
+        
+        .hljs-keyword {
+            color: #ad3da4;
+        }
+        
+        .hljs-number {
+            color: #1c00cf;
+        }
+        
+        .hljs-built_in {
+            color: #4b21b0;
+        }
+        
+        /* Success Toast */
+        .toast {
             position: fixed;
-            top: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1d1d1f;
             color: white;
-            padding: 18px 25px;
-            border-radius: 12px;
+            padding: 16px 24px;
+            border-radius: 980px;
+            font-size: 15px;
+            font-weight: 500;
             display: none;
             align-items: center;
-            gap: 12px;
-            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+            gap: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        .success-message.show {
+        .toast.show {
             display: flex;
-            animation: slideInRight 0.4s ease;
+            animation: slideUp 0.3s ease;
         }
         
-        @keyframes slideInRight {
+        @keyframes slideUp {
             from {
-                transform: translateX(400px);
                 opacity: 0;
+                transform: translateX(-50%) translateY(20px);
             }
             to {
-                transform: translateX(0);
                 opacity: 1;
+                transform: translateX(-50%) translateY(0);
             }
-        }
-        
-        .success-message i {
-            font-size: 20px;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
             body {
-                padding: 20px 10px;
+                padding: 40px 16px;
             }
             
             h1 {
-                font-size: 28px;
+                font-size: 36px;
             }
             
-            .header {
-                padding: 25px;
+            .subtitle {
+                font-size: 18px;
             }
             
             .stats {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                gap: 24px;
             }
             
             .actions {
@@ -363,6 +285,7 @@
             }
             
             .btn {
+                width: 100%;
                 justify-content: center;
             }
         }
@@ -370,53 +293,52 @@
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <div class="header">
-            <h1><i class="fa-solid fa-bicycle"></i> Code API Vélib - Version 1</h1>
-            <p class="subtitle">API Vélib Paris - Version simple avec carte et graphiques</p>
+            <h1>Code API Vélib V1</h1>
+            <p class="subtitle">API Vélib Paris - Version simple</p>
+            
+            <!-- Stats -->
             <div class="stats">
                 <div class="stat">
-                    <i class="fa-solid fa-file-code"></i>
-                    <div class="stat-content">
-                        <div class="stat-value">190</div>
-                        <div class="stat-label">lignes de code</div>
-                    </div>
+                    <span class="stat-value">190</span>
+                    <span class="stat-label">lignes</span>
                 </div>
                 <div class="stat">
-                    <i class="fa-solid fa-text-width"></i>
-                    <div class="stat-content">
-                        <div class="stat-value">6,733</div>
-                        <div class="stat-label">caractères</div>
-                    </div>
+                    <span class="stat-value">6,733</span>
+                    <span class="stat-label">caractères</span>
                 </div>
                 <div class="stat">
-                    <i class="fa-brands fa-python"></i>
-                    <div class="stat-content">
-                        <div class="stat-value">Python 3</div>
-                        <div class="stat-label">langage</div>
-                    </div>
+                    <span class="stat-value">Python 3</span>
+                    <span class="stat-label">langage</span>
                 </div>
             </div>
         </div>
         
+        <!-- Actions -->
         <div class="actions">
             <button class="btn btn-primary" onclick="copyCode()">
-                <i class="fa-solid fa-copy"></i>
+                <i class="fas fa-copy"></i>
                 <span>Copier le code</span>
             </button>
             <a href="./index.html" class="btn btn-secondary">
-                <i class="fa-solid fa-arrow-left"></i>
-                <span>Retour à l'accueil</span>
+                <i class="fas fa-arrow-left"></i>
+                <span>Retour</span>
             </a>
         </div>
         
-        <div class="code-container">
-            <div class="code-header">
-                <div class="dot red"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
-                <span class="code-title">Projet_API_Helena_Gabriel_Justine.py</span>
+        <!-- Code Window -->
+        <div class="code-window">
+            <div class="window-header">
+                <div class="window-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <span class="window-title">Projet_API_Helena_Gabriel_Justine.py</span>
             </div>
-            <pre><code class="language-python"># -*- coding: utf-8 -*-
+            <div class="code-content">
+                <pre><code class="language-python"># -*- coding: utf-8 -*-
 &quot;&quot;&quot;
 Created on Thu Oct 30 09:31:23 2025
 
@@ -606,12 +528,14 @@ for idx, row in station_max_capacite.iterrows():
     print(f&quot;   📍 Station : {row[&#x27;name&#x27;]}&quot;)
     print(f&quot;   🚲 Capacité : {int(row[&#x27;capacity&#x27;])} places&quot;)
     print()</code></pre>
+            </div>
         </div>
     </div>
     
-    <div class="success-message" id="successMessage">
-        <i class="fa-solid fa-check-circle"></i>
-        <span>Code copié dans le presse-papier !</span>
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Code copié</span>
     </div>
     
     <script>
@@ -624,14 +548,14 @@ for idx, row in station_max_capacite.iterrows():
             const textToCopy = codeElement.textContent;
             
             navigator.clipboard.writeText(textToCopy).then(() => {
-                const message = document.getElementById('successMessage');
-                message.classList.add('show');
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
                 
                 setTimeout(() => {
-                    message.classList.remove('show');
-                }, 3000);
+                    toast.classList.remove('show');
+                }, 2000);
             }).catch(err => {
-                alert('Erreur lors de la copie : ' + err);
+                alert('Erreur lors de la copie');
             });
         }
     </script>
