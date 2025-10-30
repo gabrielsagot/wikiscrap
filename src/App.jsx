@@ -196,7 +196,9 @@ export default function App() {
               Consulter les codes
             </button>
 
-            <button style={{
+            <button
+              onClick={() => window.location.href = './rapport.html'}
+              style={{
               padding: '18px 40px',
               background: 'rgba(0, 0, 0, 0.3)',
               backdropFilter: 'blur(10px)',
