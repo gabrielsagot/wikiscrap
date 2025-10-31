@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code WebScraping UNESCO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+            background: #f5f5f7;
+            min-height: 100vh;
+            padding: 60px 20px;
+            color: #1d1d1f;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: 600;
+            color: #1d1d1f;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 21px;
+            font-weight: 400;
+            color: #86868b;
+            letter-spacing: 0.01em;
+        }
+        
+        /* Stats Bar */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 32px;
+            padding: 24px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 600;
+            color: #007aff;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #86868b;
+            font-weight: 400;
+        }
+        
+        /* Actions Bar */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 980px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: #007aff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #1d1d1f;
+            border: 1px solid #d2d2d7;
+        }
+        
+        .btn-secondary:hover {
+            background: #f5f5f7;
+        }
+        
+        /* Code Window */
+        .code-window {
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .window-header {
+            background: #f5f5f7;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+        
+        .window-dots {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot.red { background: #ff5f57; }
+        .dot.yellow { background: #febc2e; }
+        .dot.green { background: #28c840; }
+        
+        .window-title {
+            margin-left: 12px;
+            font-size: 13px;
+            color: #86868b;
+            font-weight: 500;
+        }
+        
+        .code-content {
+            background: #ffffff;
+            padding: 32px;
+            overflow-x: auto;
+            max-height: 600px;
+        }
+        
+        .code-content::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        
+        .code-content::-webkit-scrollbar-track {
+            background: #f5f5f7;
+        }
+        
+        .code-content::-webkit-scrollbar-thumb {
+            background: #d2d2d7;
+            border-radius: 6px;
+        }
+        
+        .code-content::-webkit-scrollbar-thumb:hover {
+            background: #b8b8bd;
+        }
+        
+        pre {
+            margin: 0;
+        }
+        
+        code {
+            font-family: 'SF Mono', 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        /* Override highlight.js github theme for cleaner look */
+        .hljs {
+            background: transparent;
+            color: #1d1d1f;
+        }
+        
+        .hljs-comment {
+            color: #86868b;
+            font-style: normal;
+        }
+        
+        .hljs-string {
+            color: #c41a16;
+        }
+        
+        .hljs-keyword {
+            color: #ad3da4;
+        }
+        
+        .hljs-number {
+            color: #1c00cf;
+        }
+        
+        .hljs-built_in {
+            color: #4b21b0;
+        }
+        
+        /* Success Toast */
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1d1d1f;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 980px;
+            font-size: 15px;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 40px 16px;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 24px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Code WebScraping UNESCO</h1>
+            <p class="subtitle">Sites du patrimoine mondial en France</p>
+            
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-value">1035</span>
+                    <span class="stat-label">lignes</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">37,640</span>
+                    <span class="stat-label">caractères</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">Python 3</span>
+                    <span class="stat-label">langage</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Actions -->
+        <div class="actions">
+            <button class="btn btn-primary" onclick="copyCode()">
+                <i class="fas fa-copy"></i>
+                <span>Copier le code</span>
+            </button>
+            <a href="./index.html" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                <span>Retour</span>
+            </a>
+        </div>
+        
+        <!-- Code Window -->
+        <div class="code-window">
+            <div class="window-header">
+                <div class="window-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <span class="window-title">unescowik.py</span>
+            </div>
+            <div class="code-content">
+                <pre><code class="language-python">&quot;&quot;&quot;
+================================================================================
+BUT Science des Données - Semestre 3
+SAÉ VCOD - Collecte de données Web
+
+Projet : Scraping des sites UNESCO en France
+Auteur : Gabriel Sagot
+Date : Octobre 2025
+
+Description :
+Ce script récupère la liste des sites du patrimoine mondial UNESCO en France
+depuis Wikipedia, extrait leurs coordonnées géographiques, et produit des
+visualisations (graphiques et carte interactive).
+================================================================================
+&quot;&quot;&quot;
+
+# ============================================================================
+# IMPORTS DES LIBRAIRIES
+# ============================================================================
+import requests    # Bibliothèque pour faire des requêtes HTTP (communiquer avec des sites web)
+
+from bs4 import BeautifulSoup   #B ibliothèque de parsing HTML (analyse et extraction de données)
+
+import pandas as pd  # Bibliothèque de manipulation de données (DataFrames)
+
+import matplotlib.pyplot as plt  
+
+import folium  # Bibliothèque de cartographie interactive (cartes web)
+
+import re # Bibliothèque de regex (expressions régulières - recherche de motifs dans du texte)
+
+import webbrowser
+
+import os # Bibliothèque pour interagir avec le système d&#x27;exploitation (fichiers, chemins)
+
+# ============================================================================
+# CONFIGURATION GLOBALE
+# ============================================================================
+URL_WIKIPEDIA = &quot;https://fr.wikipedia.org/wiki/Liste_du_patrimoine_mondial_en_France&quot;
+
+# En-têtes HTTP pour simuler un navigateur (évite certains blocages)
+HEADERS = {
+    &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&#x27;
+}
+
+
+# ============================================================================
+# FONCTIONS DE SCRAPING
+# ============================================================================
+
+# Fonction pour se connecter à Wikipedia et récupérer le HTML de la page
+def se_connecter_au_site(url, headers):
+    &quot;&quot;&quot;
+    Étape 1 : Se connecter à la page Wikipedia et obtenir le code source HTML
+    
+    Paramètres :
+        url (str) : URL de la page à scraper
+        headers (dict) : En-têtes HTTP pour la requête
+    
+    Retourne :
+        BeautifulSoup : Objet soup contenant le code HTML parsé
+        None : Si une erreur se produit
+    &quot;&quot;&quot;
+    try:
+        # === CONNEXION ET RÉCUPÉRATION DE LA PAGE === Si erreur, on passe aux &quot;exept&quot; plus bas
+        
+        print(&quot;📡 Tentative de connexion au site Wikipedia...&quot;)
+        
+        # Envoi de la requête HTTP GET vers l&#x27;URL avec un délai max de 10 secondes
+        response = requests.get(url, headers=headers, timeout=10)
+        
+        # Force l&#x27;encodage UTF-8 pour gérer les accents français
+        response.encoding = &#x27;utf-8&#x27;
+        
+        # === VÉRIFICATION DE LA RÉPONSE ===
+        
+        # Code 200 = succès, sinon erreur (404, 403, etc.)
+        if response.status_code == 200:
+            print(&quot;✓ Connexion réussie\n&quot;)
+            
+            # Parse le HTML brut en objet BeautifulSoup manipulable
+            soup = BeautifulSoup(response.text, &quot;html.parser&quot;)
+            return soup
+        else:
+            # Affiche le code d&#x27;erreur HTTP (ex: 404, 403)
+            print(f&quot;✗ Erreur HTTP {response.status_code}\n&quot;)
+            return None
+    
+    # === GESTION DES ERREURS ===
+    
+    # Serveur trop lent (&gt; 10 secondes)
+    except requests.exceptions.Timeout:
+        print(&quot;✗ Erreur : Timeout - Le serveur met trop de temps à répondre\n&quot;)
+        return None
+    
+    # Impossible de joindre le serveur (pas d&#x27;internet, URL invalide)
+    except requests.exceptions.ConnectionError:
+        print(&quot;✗ Erreur : Impossible de se connecter au site\n&quot;)
+        return None
+    
+    # Toutes les autres erreurs imprévues
+    except Exception as e:
+        print(f&quot;✗ Erreur inattendue lors de la connexion : {e}\n&quot;)
+        return None
+
+# Fonction pour trouver et extraire le tableau contenant la liste des sites UNESCO
+def extraire_tableau_sites(soup):
+    &quot;&quot;&quot;
+    Étape 2 : Extraire le tableau contenant les sites UNESCO
+    
+    Paramètres :
+        soup (BeautifulSoup) : Objet contenant le HTML parsé
+    
+    Retourne :
+        Tag : Élément &lt;table&gt; contenant les sites
+        None : Si le tableau n&#x27;est pas trouvé
+    &quot;&quot;&quot;
+    try:
+        # === RECHERCHE DU TABLEAU ===
+        
+        print(&quot;🔍 Recherche du tableau des sites UNESCO...&quot;)
+        
+        # find_all cherche TOUTES les balises &lt;table&gt; ayant class=&quot;wikitable&quot;
+        # Retourne une liste d&#x27;éléments (ex: [table1, table2, table3])
+        tableaux = soup.find_all(&#x27;table&#x27;, {&#x27;class&#x27;: &#x27;wikitable&#x27;})
+        
+        # === SÉLECTION DU BON TABLEAU ===
+        
+        # Vérifie qu&#x27;il y a au moins 2 tableaux sur la page
+        if len(tableaux) &gt;= 2:
+            
+            # Index 1 = 2ème tableau (index 0 serait le 1er tableau)
+            # Sur Wikipedia, le 2ème tableau contient la liste des sites
+            tableau_sites = tableaux[1]
+            
+            # Compte le nombre de lignes &lt;tr&gt; (moins 1 car la 1ère ligne = en-tête)
+            print(f&quot;✓ Tableau trouvé ({len(tableau_sites.find_all(&#x27;tr&#x27;))-1} lignes)\n&quot;)
+            
+            # Retourne l&#x27;élément &lt;table&gt; pour l&#x27;utiliser ensuite
+            return tableau_sites
+        else:
+            # Pas assez de tableaux trouvés
+            print(&quot;✗ Tableau non trouvé\n&quot;)
+            return None
+    
+    # === GESTION DES ERREURS ===
+    
+    # Attrape toute erreur (ex: soup est None, problème d&#x27;attribut)
+    except Exception as e:
+        print(f&quot;✗ Erreur lors de l&#x27;extraction du tableau : {e}\n&quot;)
+        return None
+
+# Fonction pour parcourir le tableau et extraire toutes les données de chaque site
+def extraire_donnees_sites(tableau):
+    &quot;&quot;&quot;
+    Étape 3 : Extraire les données de chaque site depuis le tableau
+    
+    Cette fonction parcourt chaque ligne du tableau et extrait :
+    - Le nom du site
+    - La région
+    - L&#x27;année d&#x27;inscription
+    - Le type (Culturel/Naturel/Mixte)
+    - Les coordonnées géographiques
+    
+    Paramètres :
+        tableau (Tag) : Élément &lt;table&gt; contenant les sites
+    
+    Retourne :
+        dict : Dictionnaire contenant 5 listes (sites, regions, types, annees, coordonnees)
+    &quot;&quot;&quot;
+    print(&quot;📊 Extraction des données de chaque site...&quot;)
+    
+    # Initialisation des listes 
+    sites = []
+    regions = []
+    types_sites = []
+    annees = []
+    coordonnees = []
+    
+    try:
+        # Parcours de toutes les lignes du tableau (sauf la première = en-tête)
+        # Utilisation de find_all comme dans le cours
+        lignes = tableau.find_all(&#x27;tr&#x27;)[1:]
+        
+        for ligne in lignes:
+            # On cherche toutes les cellules &lt;td&gt; de la ligne
+            cellules = ligne.find_all(&#x27;td&#x27;)
+            
+            # Vérification qu&#x27;on a bien assez de cellules
+            if len(cellules) &gt;= 6:
+                
+                # --- EXTRACTION DU NOM DU SITE ---
+                # find avec class comme dans le cours, puis .text.strip()
+                site_nom = cellules[0].get_text(strip=True)
+                
+                # --- EXTRACTION DE LA RÉGION ---
+                region = cellules[1].get_text(strip=True)
+                
+                # --- EXTRACTION DE L&#x27;ANNÉE ---
+                annee_texte = cellules[2].get_text(strip=True)
+                # Recherche d&#x27;un nombre à 4 chiffres (année)
+                annee_trouvee = re.findall(r&#x27;\d{4}&#x27;, annee_texte)
+                if annee_trouvee:
+                    annee = int(annee_trouvee[0])
+                else:
+                    annee = None
+                
+                # --- EXTRACTION DU TYPE ---
+                type_texte = cellules[4].get_text(strip=True)
+                if &#x27;Naturel&#x27; in type_texte:
+                    type_site = &#x27;Naturel&#x27;
+                elif &#x27;Mixte&#x27; in type_texte:
+                    type_site = &#x27;Mixte&#x27;
+                else:
+                    type_site = &#x27;Culturel&#x27;
+                
+                # --- EXTRACTION DES COORDONNÉES ---
+                # On cherche d&#x27;abord un lien avec la classe &#x27;external text&#x27;
+                lien_coords = cellules[5].find(&#x27;a&#x27;, {&#x27;class&#x27;: &#x27;external text&#x27;})
+                if lien_coords:
+                    coords_texte = lien_coords.get_text(strip=True)
+                else:
+                    # Sinon on prend le texte brut de la cellule
+                    coords_texte = cellules[5].get_text(strip=True)
+                
+                # Ajout dans les listes
+                sites.append(site_nom)
+                regions.append(region)
+                types_sites.append(type_site)
+                annees.append(annee)
+                coordonnees.append(coords_texte)
+        
+        print(f&quot;✓ {len(sites)} sites extraits avec succès\n&quot;)
+        
+        # Retour d&#x27;un dictionnaire pour faciliter la création du DataFrame
+        return {
+            &#x27;Site&#x27;: sites,
+            &#x27;Region&#x27;: regions,
+            &#x27;Type&#x27;: types_sites,
+            &#x27;Annee&#x27;: annees,
+            &#x27;Coordonnees_brutes&#x27;: coordonnees
+        }
+        
+    except Exception as e:
+        print(f&quot;✗ Erreur lors de l&#x27;extraction des données : {e}\n&quot;)
+        return None
+
+
+# ============================================================================
+# FONCTIONS DE CONVERSION DES COORDONNÉES
+# ============================================================================
+
+# Fonction utilitaire pour convertir des coordonnées DMS (Degrés/Minutes/Secondes) en DD (Degrés Décimaux)
+def dms2dd(degrees, minutes, seconds, direction):
+    &quot;&quot;&quot;
+    Convertit des coordonnées DMS (Degrés, Minutes, Secondes) en DD (Degrés Décimaux)
+    
+    Fonction fournie dans le cours (exercice 6.2)
+    
+    Paramètres :
+        degrees (str/float) : Degrés
+        minutes (str/float) : Minutes
+        seconds (str/float) : Secondes
+        direction (str) : Direction (N/S/E/O)
+    
+    Retourne :
+        float : Coordonnée en degrés décimaux
+    &quot;&quot;&quot;
+    dd = float(degrees) + float(minutes)/60 + float(seconds)/(60*60)
+    
+    # Si direction Sud ou Ouest, la coordonnée est négative
+    if direction in (&#x27;S&#x27;, &#x27;O&#x27;, &#x27;W&#x27;, &#x27;sud&#x27;, &#x27;ouest&#x27;):
+        dd *= -1
+    
+    return dd
+
+
+# Fonction pour analyser et convertir différents formats de coordonnées GPS
+def parse_coordonnees(coord_string):
+    &quot;&quot;&quot;
+    Analyse une chaîne de coordonnées et la convertit en latitude/longitude décimales
+    
+    Gère différents formats :
+    - Format DMS : &quot;48° 51′ 29″ N, 2° 17′ 40″ E&quot;
+    - Format décimal : &quot;48.858, 2.294&quot;
+    
+    Paramètres :
+        coord_string (str) : Chaîne contenant les coordonnées
+    
+    Retourne :
+        tuple : (latitude, longitude) ou (None, None) si échec
+    &quot;&quot;&quot;
+    # Vérification que la chaîne n&#x27;est pas vide
+    if not coord_string or coord_string.strip() == &#x27;&#x27;:
+        return None, None
+    
+    try:
+        # --- FORMAT AVEC VIRGULE (séparation lat/lon) ---
+        if &#x27;,&#x27; in coord_string:
+            parties = coord_string.split(&#x27;,&#x27;)
+            
+            if len(parties) == 2:
+                partie_lat = parties[0].strip()
+                partie_lon = parties[1].strip()
+                
+                # LATITUDE : Recherche du format DMS
+                match_lat = re.findall(
+                    r&#x27;(\d+)[°\s]+(\d+)[′\&#x27;\s]+(\d+)[″&quot;\s]+([NSEO])&#x27;,
+                    partie_lat,
+                    re.IGNORECASE
+                )
+                
+                if match_lat:
+                    lat_deg, lat_min, lat_sec, lat_dir = match_lat[0]
+                    latitude = dms2dd(lat_deg, lat_min, lat_sec, lat_dir)
+                else:
+                    # Tentative format décimal
+                    lat_decimal = re.findall(r&#x27;([-]?\d+\.?\d*)&#x27;, partie_lat)
+                    if lat_decimal:
+                        latitude = float(lat_decimal[0])
+                    else:
+                        return None, None
+                
+                # LONGITUDE : Recherche du format DMS
+                match_lon = re.findall(
+                    r&#x27;(\d+)[°\s]+(\d+)[′\&#x27;\s]+(\d+)[″&quot;\s]+([NSEO])&#x27;,
+                    partie_lon,
+                    re.IGNORECASE
+                )
+                
+                if match_lon:
+                    lon_deg, lon_min, lon_sec, lon_dir = match_lon[0]
+                    longitude = dms2dd(lon_deg, lon_min, lon_sec, lon_dir)
+                else:
+                    # Tentative format décimal
+                    lon_decimal = re.findall(r&#x27;([-]?\d+\.?\d*)&#x27;, partie_lon)
+                    if lon_decimal:
+                        longitude = float(lon_decimal[0])
+                    else:
+                        return None, None
+                
+                return latitude, longitude
+        
+        # --- FORMAT DÉCIMAL DIRECT ---
+        decimales = re.findall(r&#x27;([-]?\d+\.?\d+)&#x27;, coord_string)
+        if len(decimales) &gt;= 2:
+            return float(decimales[0]), float(decimales[1])
+        
+    except Exception as e:
+        # Gestion des erreurs silencieuse pour ne pas polluer la sortie
+        return None, None
+    
+    return None, None
+
+
+# Fonction pour convertir les coordonnées brutes de tous les sites du DataFrame
+def convertir_toutes_coordonnees(dataframe):
+    &quot;&quot;&quot;
+    Convertit toutes les coordonnées brutes du DataFrame en latitude/longitude
+    
+    Paramètres :
+        dataframe (DataFrame) : DataFrame contenant une colonne &#x27;Coordonnees_brutes&#x27;
+    
+    Retourne :
+        DataFrame : DataFrame avec 2 nouvelles colonnes &#x27;Latitude&#x27; et &#x27;Longitude&#x27;
+    &quot;&quot;&quot;
+    print(&quot;🗺️  Conversion des coordonnées géographiques...&quot;)
+    
+    latitudes = []
+    longitudes = []
+    erreurs = 0
+    
+    try:
+        # Parcours de chaque ligne du DataFrame
+        for index, row in dataframe.iterrows():
+            coord_brute = row[&#x27;Coordonnees_brutes&#x27;]
+            
+            # Appel de la fonction de parsing
+            lat, lon = parse_coordonnees(coord_brute)
+            
+            latitudes.append(lat)
+            longitudes.append(lon)
+            
+            if lat is None or lon is None:
+                erreurs += 1
+        
+        # Ajout des colonnes au DataFrame
+        dataframe[&#x27;Latitude&#x27;] = latitudes
+        dataframe[&#x27;Longitude&#x27;] = longitudes
+        
+        nb_ok = len(dataframe) - erreurs
+        print(f&quot;✓ {nb_ok} sites avec coordonnées valides&quot;)
+        
+        if erreurs &gt; 0:
+            print(f&quot;⚠️  {erreurs} sites sans coordonnées\n&quot;)
+        else:
+            print()
+        
+        return dataframe
+        
+    except Exception as e:
+        print(f&quot;✗ Erreur lors de la conversion : {e}\n&quot;)
+        return dataframe
+
+
+# Fonction pour ajouter manuellement les coordonnées GPS des sites qui n&#x27;en ont pas
+def corriger_coordonnees_manquantes(dataframe):
+    &quot;&quot;&quot;
+    Corrige manuellement les coordonnées manquantes pour certains sites
+    
+    Note : Certains sites UNESCO sont &quot;en série&quot; (plusieurs lieux).
+    On utilise un point représentatif pour la visualisation.
+    
+    Paramètres :
+        dataframe (DataFrame) : DataFrame avec coordonnées
+    
+    Retourne :
+        DataFrame : DataFrame avec coordonnées corrigées
+    &quot;&quot;&quot;
+    print(&quot;🔧 Correction des coordonnées manquantes...&quot;)
+    
+    try:
+        nb_avant = dataframe[&#x27;Latitude&#x27;].isna().sum()
+        
+        # Exemple : Sites des mémoriaux de la Première Guerre mondiale
+        # On utilise Notre-Dame-de-Lorette comme point représentatif
+        dataframe.loc[dataframe[&#x27;Latitude&#x27;].isna(), &#x27;Latitude&#x27;] = 50.40
+        dataframe.loc[dataframe[&#x27;Longitude&#x27;].isna(), &#x27;Longitude&#x27;] = 2.71
+        
+        nb_apres = dataframe[&#x27;Latitude&#x27;].isna().sum()
+        nb_corriges = nb_avant - nb_apres
+        
+        if nb_corriges &gt; 0:
+            print(f&quot;✓ {nb_corriges} coordonnées corrigées\n&quot;)
+        else:
+            print(&quot;✓ Aucune correction nécessaire\n&quot;)
+        
+        return dataframe
+        
+    except Exception as e:
+        print(f&quot;⚠️  Erreur lors de la correction : {e}\n&quot;)
+        return dataframe
+
+
+# ============================================================================
+# FONCTIONS DE VISUALISATION - GRAPHIQUES
+# ============================================================================
+
+# Fonction pour créer un graphique des 10 régions avec le plus de sites UNESCO
+def creer_graphique_regions(dataframe):
+    &quot;&quot;&quot;
+    Crée un graphique en barres horizontales du top 10 des régions
+    
+    Paramètres :
+        dataframe (DataFrame) : DataFrame contenant une colonne &#x27;Region&#x27;
+    &quot;&quot;&quot;
+    try:
+        print(&quot;📊 Création du graphique des régions...&quot;)
+        
+        plt.figure(figsize=(12, 8))
+        
+        # Comptage et tri des régions (top 10)
+        top_regions = dataframe[&#x27;Region&#x27;].value_counts().head(10).sort_values()
+        
+        # Création du graphique en barres horizontales
+        top_regions.plot(kind=&#x27;barh&#x27;, color=&#x27;#2E86AB&#x27;)
+        
+        plt.title(&#x27;Top 10 des régions - Sites UNESCO en France&#x27;, 
+                  fontsize=15, fontweight=&#x27;bold&#x27;)
+        plt.xlabel(&#x27;Nombre de sites&#x27;, fontsize=12)
+        plt.ylabel(&#x27;Région&#x27;, fontsize=12)
+        plt.tight_layout()
+        plt.show()
+        
+        print(&quot;✓ Graphique des régions affiché\n&quot;)
+        
+    except Exception as e:
+        print(f&quot;✗ Erreur lors de la création du graphique : {e}\n&quot;)
+
+
+# Fonction pour créer un graphique des inscriptions UNESCO par décennie
+def creer_graphique_decennies(dataframe):
+    &quot;&quot;&quot;
+    Crée un graphique en barres des inscriptions par décennie
+    
+    Paramètres :
+        dataframe (DataFrame) : DataFrame contenant une colonne &#x27;Annee&#x27;
+    &quot;&quot;&quot;
+    try:
+        print(&quot;📊 Création du graphique par décennie...&quot;)
+        
+        # On ne garde que les lignes avec une année valide
+        df_avec_annee = dataframe.dropna(subset=[&#x27;Annee&#x27;]).copy()
+        
+        # Calcul de la décennie (ex: 1998 → 1990)
+        df_avec_annee[&#x27;Decennie&#x27;] = (df_avec_annee[&#x27;Annee&#x27;] // 10 * 10).astype(int)
+        
+        plt.figure(figsize=(12, 6))
+        
+        # Comptage par décennie
+        comptage_decennies = df_avec_annee[&#x27;Decennie&#x27;].value_counts().sort_index()
+        comptage_decennies.plot(kind=&#x27;bar&#x27;, color=&#x27;#A23B72&#x27;)
+        
+        plt.title(&#x27;Inscriptions au patrimoine UNESCO par décennie&#x27;, 
+                  fontsize=15, fontweight=&#x27;bold&#x27;)
+        plt.xlabel(&#x27;Décennie&#x27;, fontsize=12)
+        plt.ylabel(&#x27;Nombre de sites inscrits&#x27;, fontsize=12)
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+        
+        print(&quot;✓ Graphique des décennies affiché\n&quot;)
+        
+    except Exception as e:
+        print(f&quot;✗ Erreur lors de la création du graphique : {e}\n&quot;)
+
+
+# Fonction pour créer un graphique montrant la répartition Culturel/Naturel/Mixte
+def creer_graphique_types(dataframe):
+    &quot;&quot;&quot;
+    Crée un graphique en barres des types de sites
+    
+    Paramètres :
+        dataframe (DataFrame) : DataFrame contenant une colonne &#x27;Type&#x27;
+    &quot;&quot;&quot;
+    try:
+        print(&quot;📊 Création du graphique des types...&quot;)
+        
+        plt.figure(figsize=(9, 6))
+        
+        # Comptage par type
+        comptage_types = dataframe[&#x27;Type&#x27;].value_counts()
+        comptage_types.plot(kind=&#x27;bar&#x27;, 
+                           color=[&#x27;#F18F01&#x27;, &#x27;#006466&#x27;, &#x27;#C73E1D&#x27;])
+        
+        plt.title(&#x27;Répartition des sites UNESCO par type&#x27;, 
+                  fontsize=15, fontweight=&#x27;bold&#x27;)
+        plt.xlabel(&#x27;Type de site&#x27;, fontsize=12)
+        plt.ylabel(&#x27;Nombre de sites&#x27;, fontsize=12)
+        plt.xticks(rotation=0)
+        plt.tight_layout()
+        plt.show()
+        
+        print(&quot;✓ Graphique des types affiché\n&quot;)
+        
+    except Exception as e:
+        print(f&quot;✗ Erreur lors de la création du graphique : {e}\n&quot;)
+
+
+# ============================================================================
+# FONCTION DE VISUALISATION - CARTE FOLIUM
+# ============================================================================
+
+# Fonction pour créer une carte interactive Folium avec marqueurs pour chaque site UNESCO
+def creer_carte_interactive(dataframe, nom_fichier=&#x27;carte_unesco_france.html&#x27;):
+    &quot;&quot;&quot;
+    Crée une carte interactive avec Folium montrant tous les sites UNESCO
+    
+    Inspiré de l&#x27;exercice 6.2 du cours
+    
+    Paramètres :
+        dataframe (DataFrame) : DataFrame avec colonnes Latitude, Longitude, Site, Type
+        nom_fichier (str) : Nom du fichier HTML à générer
+    &quot;&quot;&quot;
+    try:
+        print(&quot;🗺️  Création de la carte interactive Folium...&quot;)
+        
+        # On ne garde que les sites avec coordonnées valides
+        df_carte = dataframe.dropna(subset=[&#x27;Latitude&#x27;, &#x27;Longitude&#x27;]).copy()
+        
+        # Création de la carte centrée sur la France
+        # tiles=&#x27;Stamen Toner&#x27; comme dans le cours (exercice 6.2)
+        carte = folium.Map(
+            location=[47, 2],      # Centre de la France
+            zoom_start=6,
+            tiles=&#x27;OpenStreetMap&#x27;  # Ou &#x27;Stamen Toner&#x27; si disponible
+        )
+        
+        # Dictionnaire de couleurs par type
+        couleurs = {
+            &#x27;Culturel&#x27;: &#x27;blue&#x27;,
+            &#x27;Naturel&#x27;: &#x27;green&#x27;,
+            &#x27;Mixte&#x27;: &#x27;orange&#x27;
+        }
+        
+        # Ajout d&#x27;un marqueur pour chaque site
+        for index, row in df_carte.iterrows():
+            
+            # Détermination de la couleur selon le type
+            couleur = couleurs.get(row[&#x27;Type&#x27;], &#x27;gray&#x27;)
+            
+            # Création du contenu de la popup
+            popup_html = f&quot;&quot;&quot;
+            &lt;div style=&quot;font-family: Arial; width: 200px;&quot;&gt;
+                &lt;b&gt;{row[&#x27;Site&#x27;]}&lt;/b&gt;&lt;br&gt;
+                📍 {row[&#x27;Region&#x27;]}&lt;br&gt;
+                📅 {int(row[&#x27;Annee&#x27;]) if pd.notna(row[&#x27;Annee&#x27;]) else &#x27;N/A&#x27;}&lt;br&gt;
+                🏛️ {row[&#x27;Type&#x27;]}
+            &lt;/div&gt;
+            &quot;&quot;&quot;
+            
+            # Ajout du marqueur (comme dans le cours)
+            folium.Marker(
+                location=[row[&#x27;Latitude&#x27;], row[&#x27;Longitude&#x27;]],
+                popup=folium.Popup(popup_html, max_width=300),
+                icon=folium.Icon(color=couleur, icon=&#x27;info-sign&#x27;)
+            ).add_to(carte)
+        
+        # Sauvegarde de la carte
+        carte.save(nom_fichier)
+        print(f&quot;✓ Carte sauvegardée : {nom_fichier}&quot;)
+        
+        # Ouverture automatique dans le navigateur (comme dans le cours)
+        webbrowser.open_new_tab(nom_fichier)
+        print(f&quot;✓ Carte ouverte dans le navigateur\n&quot;)
+        
+    except Exception as e:
+        print(f&quot;✗ Erreur lors de la création de la carte : {e}\n&quot;)
+
+
+# ============================================================================
+# FONCTION PRINCIPALE
+# ============================================================================
+
+# Fonction principale qui orchestre toutes les étapes du scraping et de la visualisation
+def main():
+    &quot;&quot;&quot;
+    Fonction principale orchestrant toutes les étapes du projet
+    
+    Étapes :
+    1. Connexion et scraping du site Wikipedia
+    2. Extraction des données dans un DataFrame
+    3. Conversion des coordonnées géographiques
+    4. Création des visualisations (graphiques + carte)
+    &quot;&quot;&quot;
+    print(&quot;=&quot;*80)
+    print(&quot; PROJET SAÉ VCOD - SCRAPING DES SITES UNESCO EN FRANCE&quot;)
+    print(&quot;=&quot;*80)
+    print()
+    
+    # --- ÉTAPE 1 : CONNEXION AU SITE ---
+    soup = se_connecter_au_site(URL_WIKIPEDIA, HEADERS)
+    
+    if soup is None:
+        print(&quot;❌ Impossible de continuer sans connexion&quot;)
+        return
+    
+    # --- ÉTAPE 2 : EXTRACTION DU TABLEAU ---
+    tableau = extraire_tableau_sites(soup)
+    
+    if tableau is None:
+        print(&quot;❌ Impossible de continuer sans le tableau&quot;)
+        return
+    
+    # --- ÉTAPE 3 : EXTRACTION DES DONNÉES ---
+    donnees = extraire_donnees_sites(tableau)
+    
+    if donnees is None:
+        print(&quot;❌ Impossible de continuer sans données&quot;)
+        return
+    
+    # --- ÉTAPE 4 : CRÉATION DU DATAFRAME ---
+    print(&quot;📋 Création du DataFrame pandas...&quot;)
+    df = pd.DataFrame(donnees)
+    print(f&quot;✓ DataFrame créé : {len(df)} lignes × {len(df.columns)} colonnes\n&quot;)
+    
+    # Affichage d&#x27;un aperçu
+    print(&quot;Aperçu des 3 premières lignes :&quot;)
+    print(df.head(3))
+    print()
+    
+    # --- ÉTAPE 5 : CONVERSION DES COORDONNÉES ---
+    df = convertir_toutes_coordonnees(df)
+    df = corriger_coordonnees_manquantes(df)
+    
+    # --- ÉTAPE 6 : CRÉATION DES GRAPHIQUES ---
+    print(&quot;=&quot;*80)
+    print(&quot; VISUALISATIONS - GRAPHIQUES&quot;)
+    print(&quot;=&quot;*80)
+    print()
+    
+    creer_graphique_regions(df)
+    creer_graphique_decennies(df)
+    creer_graphique_types(df)
+    
+    # --- ÉTAPE 7 : CRÉATION DE LA CARTE ---
+    print(&quot;=&quot;*80)
+    print(&quot; VISUALISATION - CARTE INTERACTIVE&quot;)
+    print(&quot;=&quot;*80)
+    print()
+    
+    creer_carte_interactive(df)
+    
+    # --- FIN ---
+    print(&quot;=&quot;*80)
+    print(&quot; ✅ PROJET TERMINÉ AVEC SUCCÈS&quot;)
+    print(&quot;=&quot;*80)
+    print()
+    print(f&quot;📊 Statistiques finales :&quot;)
+    print(f&quot;   • {len(df)} sites UNESCO en France&quot;)
+    print(f&quot;   • {df[&#x27;Latitude&#x27;].notna().sum()} sites géolocalisés&quot;)
+    print(f&quot;   • {len(df[&#x27;Region&#x27;].unique())} régions représentées&quot;)
+    print(f&quot;   • {len(df[&#x27;Type&#x27;].unique())} types de sites&quot;)
+    print()
+
+
+# ============================================================================
+# POINT D&#x27;ENTRÉE DU PROGRAMME
+# ============================================================================
+
+if __name__ == &quot;__main__&quot;:
+    &quot;&quot;&quot;
+    Point d&#x27;entrée : ce bloc s&#x27;exécute uniquement si le script est lancé directement
+    (pas si importé comme module)
+    &quot;&quot;&quot;
+    main()
+
+## ============================================================================
+# FONCTION DE VISUALISATION - CARTE INTERACTIVE AVANCÉE
+# ============================================================================
+
+# Fonction pour vérifier si des coordonnées GPS sont situées en France (métropole ou DOM-TOM)
+def verifier_coordonnees_france(latitude, longitude):
+    &quot;&quot;&quot;
+    Vérifie si des coordonnées GPS sont situées en France (métropole ou DOM-TOM)
+    
+    Zones géographiques couvertes :
+    - France métropolitaine : 41°-51° N, -5°-10° E
+    - La Réunion : -25° à -20° N, 55°-60° E
+    - Guadeloupe/Martinique : 14°-18° N, -63° à -60° E
+    - Nouvelle-Calédonie : -23° à -21° N, 164°-168° E
+    - Polynésie française : -18° à -8° N, -141° à -138° E
+    - TAAF : -50° à -37° N, 50°-78° E
+    
+    Paramètres :
+        latitude (float) : Latitude en degrés décimaux
+        longitude (float) : Longitude en degrés décimaux
+    
+    Retourne :
+        bool : True si les coordonnées sont en France, False sinon
+    &quot;&quot;&quot;
+    try:
+        # Vérification France métropolitaine
+        if 41 &lt;= latitude &lt;= 51 and -5 &lt;= longitude &lt;= 10:
+            return True
+        
+        # Vérification La Réunion
+        if -25 &lt;= latitude &lt;= -20 and 55 &lt;= longitude &lt;= 60:
+            return True
+        
+        # Vérification Guadeloupe/Martinique
+        if 14 &lt;= latitude &lt;= 18 and -63 &lt;= longitude &lt;= -60:
+            return True
+        
+        # Vérification Nouvelle-Calédonie
+        if -23 &lt;= latitude &lt;= -21 and 164 &lt;= longitude &lt;= 168:
+            return True
+        
+        # Vérification Polynésie française
+        if -18 &lt;= latitude &lt;= -8 and -141 &lt;= longitude &lt;= -138:
+            return True
+        
+        # Vérification TAAF (Terres australes et antarctiques françaises)
+        if -50 &lt;= latitude &lt;= -37 and 50 &lt;= longitude &lt;= 78:
+            return True
+        
+        return False
+        
+    except Exception as e:
+        print(f&quot;⚠️  Erreur lors de la vérification des coordonnées : {e}&quot;)
+        return False
+
+
+# Fonction pour obtenir la couleur et l&#x27;icône associées à un type de site
+def obtenir_configuration_type(type_site):
+    &quot;&quot;&quot;
+    Retourne la configuration visuelle (couleur et icône) pour un type de site
+    
+    Paramètres :
+        type_site (str) : Type du site (&#x27;Culturel&#x27;, &#x27;Naturel&#x27;, ou &#x27;Mixte&#x27;)
+    
+    Retourne :
+        dict : Dictionnaire avec &#x27;color&#x27; et &#x27;icon&#x27;
+    &quot;&quot;&quot;
+    # Configuration des couleurs et icônes par type de site
+    configurations = {
+        &#x27;Culturel&#x27;: {
+            &#x27;color&#x27;: &#x27;#3498db&#x27;,      # Bleu
+            &#x27;icon&#x27;: &#x27;fa-landmark&#x27;    # Icône monument
+        },
+        &#x27;Naturel&#x27;: {
+            &#x27;color&#x27;: &#x27;#27ae60&#x27;,      # Vert
+            &#x27;icon&#x27;: &#x27;fa-tree&#x27;        # Icône arbre
+        },
+        &#x27;Mixte&#x27;: {
+            &#x27;color&#x27;: &#x27;#e67e22&#x27;,      # Orange
+            &#x27;icon&#x27;: &#x27;fa-mountain-sun&#x27; # Icône montagne/soleil
+        }
+    }
+    
+    # Retour de la config ou config par défaut si type inconnu
+    return configurations.get(type_site, {
+        &#x27;color&#x27;: &#x27;#95a5a6&#x27;,       # Gris
+        &#x27;icon&#x27;: &#x27;fa-map-marker&#x27;   # Marqueur standard
+    })
+
+
+# Fonction pour générer le contenu HTML stylé d&#x27;une popup de marqueur sur la carte
+def creer_popup_html(row, config_couleur):
+    &quot;&quot;&quot;
+    Crée le contenu HTML stylé pour la popup d&#x27;un marqueur
+    
+    Paramètres :
+        row (Series) : Ligne du DataFrame contenant les infos du site
+        config_couleur (dict) : Configuration de couleur et icône
+    
+    Retourne :
+        str : Code HTML de la popup
+    &quot;&quot;&quot;
+    popup_html = f&quot;&quot;&quot;
+    &lt;div style=&quot;font-family: &#x27;Segoe UI&#x27;, Tahoma, sans-serif; width: 250px;&quot;&gt;
+        &lt;h4 style=&quot;color: {config_couleur[&#x27;color&#x27;]}; 
+                   margin: 0 0 10px 0; 
+                   font-size: 16px; 
+                   border-bottom: 2px solid {config_couleur[&#x27;color&#x27;]}; 
+                   padding-bottom: 5px;&quot;&gt;
+            &lt;i class=&quot;fa {config_couleur[&#x27;icon&#x27;]}&quot; style=&quot;margin-right: 8px;&quot;&gt;&lt;/i&gt;
+            {row[&#x27;Site&#x27;]}
+        &lt;/h4&gt;
+        
+        &lt;p style=&quot;margin: 5px 0; color: #555; font-size: 13px;&quot;&gt;
+            &lt;i class=&quot;fa fa-map-pin&quot; style=&quot;color: {config_couleur[&#x27;color&#x27;]}; margin-right: 5px;&quot;&gt;&lt;/i&gt;
+            &lt;strong&gt;Région:&lt;/strong&gt; {row[&#x27;Region&#x27;]}
+        &lt;/p&gt;
+        
+        &lt;p style=&quot;margin: 5px 0; color: #555; font-size: 13px;&quot;&gt;
+            &lt;i class=&quot;fa fa-tag&quot; style=&quot;color: {config_couleur[&#x27;color&#x27;]}; margin-right: 5px;&quot;&gt;&lt;/i&gt;
+            &lt;strong&gt;Type:&lt;/strong&gt; {row[&#x27;Type&#x27;]}
+        &lt;/p&gt;
+        
+        &lt;p style=&quot;margin: 5px 0; color: #555; font-size: 13px;&quot;&gt;
+            &lt;i class=&quot;fa fa-calendar&quot; style=&quot;color: {config_couleur[&#x27;color&#x27;]}; margin-right: 5px;&quot;&gt;&lt;/i&gt;
+            &lt;strong&gt;Inscrit en:&lt;/strong&gt; {int(row[&#x27;Annee&#x27;]) if pd.notna(row[&#x27;Annee&#x27;]) else &#x27;N/A&#x27;}
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &quot;&quot;&quot;
+    
+    return popup_html
+
+
+# Fonction pour créer la légende interactive affichée sur la carte Folium
+def creer_legende_html(dataframe):
+    &quot;&quot;&quot;
+    Crée le code HTML de la légende affichée sur la carte
+    
+    Paramètres :
+        dataframe (DataFrame) : DataFrame complet pour compter les sites par type
+    
+    Retourne :
+        str : Code HTML de la légende
+    &quot;&quot;&quot;
+    # Comptage des sites par type
+    nb_culturel = len(dataframe[dataframe[&#x27;Type&#x27;] == &#x27;Culturel&#x27;])
+    nb_naturel = len(dataframe[dataframe[&#x27;Type&#x27;] == &#x27;Naturel&#x27;])
+    nb_mixte = len(dataframe[dataframe[&#x27;Type&#x27;] == &#x27;Mixte&#x27;])
+    nb_total = len(dataframe.dropna(subset=[&#x27;Latitude&#x27;, &#x27;Longitude&#x27;]))
+    
+    legende_html = f&quot;&quot;&quot;
+    &lt;div style=&quot;position: fixed; 
+                top: 10px; 
+                right: 10px; 
+                width: 200px; 
+                background-color: white; 
+                border: 2px solid #ddd;
+                border-radius: 10px;
+                padding: 15px;
+                font-family: &#x27;Segoe UI&#x27;, Tahoma, sans-serif;
+                font-size: 14px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                z-index: 9999;&quot;&gt;
+        
+        &lt;!-- En-tête de la légende --&gt;
+        &lt;h4 style=&quot;margin: 0 0 12px 0; 
+                   color: #2c3e50; 
+                   font-size: 16px; 
+                   border-bottom: 2px solid #3498db; 
+                   padding-bottom: 8px;&quot;&gt;
+            &lt;i class=&quot;fa fa-layer-group&quot; style=&quot;margin-right: 8px;&quot;&gt;&lt;/i&gt;Légende
+        &lt;/h4&gt;
+        
+        &lt;!-- Type Culturel --&gt;
+        &lt;div style=&quot;margin: 8px 0;&quot;&gt;
+            &lt;i class=&quot;fa fa-landmark&quot; style=&quot;color: #3498db; margin-right: 8px;&quot;&gt;&lt;/i&gt;
+            &lt;span style=&quot;color: #555;&quot;&gt;Culturel ({nb_culturel})&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- Type Naturel --&gt;
+        &lt;div style=&quot;margin: 8px 0;&quot;&gt;
+            &lt;i class=&quot;fa fa-tree&quot; style=&quot;color: #27ae60; margin-right: 8px;&quot;&gt;&lt;/i&gt;
+            &lt;span style=&quot;color: #555;&quot;&gt;Naturel ({nb_naturel})&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- Type Mixte --&gt;
+        &lt;div style=&quot;margin: 8px 0;&quot;&gt;
+            &lt;i class=&quot;fa fa-mountain-sun&quot; style=&quot;color: #e67e22; margin-right: 8px;&quot;&gt;&lt;/i&gt;
+            &lt;span style=&quot;color: #555;&quot;&gt;Mixte ({nb_mixte})&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- Séparateur --&gt;
+        &lt;hr style=&quot;border: none; border-top: 1px solid #ddd; margin: 12px 0;&quot;&gt;
+        
+        &lt;!-- Total --&gt;
+        &lt;div style=&quot;text-align: center; color: #7f8c8d; font-size: 12px;&quot;&gt;
+            &lt;strong&gt;Total: {nb_total} sites&lt;/strong&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &quot;&quot;&quot;
+    
+    return legende_html
+
+
+# Fonction avancée pour créer une carte interactive avec plugins, légende et marqueurs personnalisés (écrase la version simple)
+def creer_carte_interactive(dataframe, nom_fichier=&#x27;carte_unesco_france.html&#x27;):
+    &quot;&quot;&quot;
+    Crée une carte interactive avancée avec Folium montrant tous les sites UNESCO
+    
+    Fonctionnalités :
+    - Marqueurs colorés et personnalisés par type de site
+    - Popups avec informations détaillées
+    - Légende interactive
+    - Filtrage géographique (France métropolitaine + DOM-TOM)
+    - Bouton plein écran
+    - Mini-carte de navigation
+    - Style moderne CartoDB Positron
+    
+    Paramètres :
+        dataframe (DataFrame) : DataFrame avec colonnes Latitude, Longitude, Site, Type, etc.
+        nom_fichier (str) : Nom du fichier HTML à générer (défaut: &#x27;carte_unesco_france.html&#x27;)
+    &quot;&quot;&quot;
+    try:
+        print(&quot;🗺️  Création de la carte interactive avancée...&quot;)
+        
+        # Import du module plugins pour fonctionnalités avancées
+        from folium import plugins
+        
+        # --- ÉTAPE 1 : FILTRAGE DES DONNÉES ---
+        # On ne garde que les sites avec coordonnées valides
+        df_carte = dataframe.dropna(subset=[&#x27;Latitude&#x27;, &#x27;Longitude&#x27;]).copy()
+        print(f&quot;   → {len(df_carte)} sites avec coordonnées valides&quot;)
+        
+        # --- ÉTAPE 2 : CRÉATION DE LA CARTE DE BASE ---
+        # Carte moderne avec style CartoDB Positron (plus clair et élégant)
+        carte = folium.Map(
+            location=[46.6, 2.5],           # Centre de la France
+            zoom_start=6,                    # Niveau de zoom initial
+            tiles=&#x27;CartoDB positron&#x27;,        # Style de carte moderne
+            control_scale=True               # Affichage de l&#x27;échelle
+        )
+        print(&quot;   → Carte de base créée avec style CartoDB Positron&quot;)
+        
+        # --- ÉTAPE 3 : AJOUT DES MARQUEURS ---
+        marqueurs_ajoutes = 0
+        marqueurs_ignores = 0
+        
+        for index, row in df_carte.iterrows():
+            lat = row[&#x27;Latitude&#x27;]
+            lon = row[&#x27;Longitude&#x27;]
+            
+            # Vérification que le site est bien en France
+            if not verifier_coordonnees_france(lat, lon):
+                print(f&quot;   ⚠️  Hors France : {row[&#x27;Site&#x27;]} ({lat:.2f}, {lon:.2f})&quot;)
+                marqueurs_ignores += 1
+                continue
+            
+            # Récupération de la configuration (couleur/icône) selon le type
+            config = obtenir_configuration_type(row[&#x27;Type&#x27;])
+            
+            # Création du contenu HTML de la popup
+            popup_html = creer_popup_html(row, config)
+            
+            # Création et ajout du marqueur sur la carte
+            folium.Marker(
+                location=[lat, lon],
+                popup=folium.Popup(popup_html, max_width=300),
+                tooltip=f&quot;&lt;b&gt;{row[&#x27;Site&#x27;]}&lt;/b&gt;&quot;,  # Info-bulle au survol
+                icon=folium.Icon(
+                    color=&#x27;white&#x27;,               # Fond du marqueur
+                    icon_color=config[&#x27;color&#x27;],  # Couleur de l&#x27;icône
+                    icon=config[&#x27;icon&#x27;],         # Icône Font Awesome
+                    prefix=&#x27;fa&#x27;                  # Préfixe pour Font Awesome
+                )
+            ).add_to(carte)
+            
+            marqueurs_ajoutes += 1
+        
+        print(f&quot;   → {marqueurs_ajoutes} marqueurs ajoutés&quot;)
+        if marqueurs_ignores &gt; 0:
+            print(f&quot;   → {marqueurs_ignores} marqueurs ignorés (hors France)&quot;)
+        
+        # --- ÉTAPE 4 : AJOUT DE LA LÉGENDE ---
+        legende_html = creer_legende_html(dataframe)
+        carte.get_root().html.add_child(folium.Element(legende_html))
+        print(&quot;   → Légende ajoutée&quot;)
+        
+        # --- ÉTAPE 5 : AJOUT DES PLUGINS INTERACTIFS ---
+        
+        # Plugin 1 : Bouton plein écran
+        plugins.Fullscreen(
+            position=&#x27;topleft&#x27;,              # Position en haut à gauche
+            title=&#x27;Plein écran&#x27;,
+            title_cancel=&#x27;Quitter le plein écran&#x27;,
+            force_separate_button=True
+        ).add_to(carte)
+        print(&quot;   → Plugin plein écran ajouté&quot;)
+        
+        # Plugin 2 : Mini-carte de navigation
+        plugins.MiniMap(
+            toggle_display=True              # Possibilité de masquer/afficher
+        ).add_to(carte)
+        print(&quot;   → Mini-carte de navigation ajoutée&quot;)
+        
+        # --- ÉTAPE 6 : SAUVEGARDE ET OUVERTURE ---
+        carte.save(nom_fichier)
+        print(f&quot;✓ Carte sauvegardée : {nom_fichier}&quot;)
+
+        # Ouverture dans le navigateur avec chemin absolu
+        chemin_absolu = os.path.abspath(nom_fichier)
+        webbrowser.open(&#x27;file://&#x27; + chemin_absolu)
+        print(f&quot;✓ Carte ouverte dans le navigateur\n&quot;)
+        
+    except ImportError as e:
+        print(f&quot;✗ Erreur : Module manquant - {e}&quot;)
+        print(&quot;   Installez folium avec : pip install folium\n&quot;)
+    except Exception as e:
+        print(f&quot;✗ Erreur lors de la création de la carte : {e}\n&quot;)</code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Code copié</span>
+    </div>
+    
+    <script>
+        // Initialiser la coloration syntaxique
+        hljs.highlightAll();
+        
+        // Fonction pour copier le code
+        function copyCode() {
+            const codeElement = document.querySelector('code');
+            const textToCopy = codeElement.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                alert('Erreur lors de la copie');
+            });
+        }
+    </script>
+</body>
+</html>
